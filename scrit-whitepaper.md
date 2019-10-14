@@ -150,7 +150,7 @@ Instructions:
 -   HASHBY $<$hashresult$>$: Writes $1$ or $0$ into $R_0$. **TODO ?**
 -   HASHBYOOB $<$hashresult$>$: Writes $1$ or $0$ into $R_0$, adds
     hashkey into $OOB$.
--   DBCSPENT $<$hash of DBC L-Value$>$: Check spendboo, set $R_0$.
+-   DBCSPENT $<$hash of DBC L-Value$>$: Check spendbook, set $R_0$.
 -   SETREG1...7 $<$var$>$: Set register to value.
 
 **TODO**: finish section
