@@ -90,7 +90,8 @@ Transaction format
 -   Parameters (verify against parameter tree)
 -   Mint signatures (in order of In DBCs)
 
-Scrit uses a ECC based blind signature scheme published by @SinghDas2014.
+Scrit uses a ECC based blind signature scheme published by
+@SinghDas2014.
 
 Parameter tree
 --------------
