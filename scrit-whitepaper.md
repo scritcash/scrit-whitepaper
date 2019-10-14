@@ -163,8 +163,94 @@ Distribution
 Governance
 ==========
 
--   Codechain
--   new money is also part of Codechain
+As mentioned before, the mints do not have to talk to each other to
+perform normal transactions (which are *reissue* = *spend* + *issue*
+operations). Either an unspent in DBC is presented to them with their
+**own** signature or an in DBC with enough signatures of **other**
+mints, such that the signatures reach quorum. The former is the normal
+case. The latter can happen when a mint wasn't reachable during an
+earlier reissue operation or simply didn't exist yet.
+
+However, this still leaves a few questions open: How is new money
+introduced into the system and the (optional) backing (a pure *issue*
+operation of new DBCs)? How is money removed from the system and the
+(optional) backing a (pure *spend* operation of DBCs)? How are new mints
+introduced into the system or existing ones removed from it? Under what
+rules do the mints operate? How does a client get to know which mints
+belong to the system and which changes are made, ideally in an automatic
+and cryptographically secure fashion? In short: How do we solve the
+problem of *governance*?
+
+Scrit uses [Codechain](https://github.com/frankbraun/codechain) as its
+governance layer. Codechain is a system for secure multiparty code
+reviews which establishes code trust via multi-party reviews recorded
+unmodifiable hash chains. This makes it impossible for a single
+developer to add changes to the Scrit code base. It should be obvious
+why using Codechain is a good idea for sensitive code like the Scrit
+client or the Scrit mint, but it is probably less obvious how it could
+solve the governance problem. For the client and the mint the signers of
+the Scrit Codechain are the trusted Scrit developers.
+
+To understand how Codechain can solve the governance problem three
+points are important:
+
+1.  A Codechain "repository" doesn't have to contain source code,
+    although that is the most common use case. It could also just
+    contain configuration data and text files.
+
+2.  The set of signers of a Codechain doesn't have to be the group of
+    developers. It could also be another group, like all the mints.
+
+3.  Codechain contains a mechanism called *secure dependencies* (see the
+    [specification](https://godoc.org/github.com/frankbraun/codechain/secpkg)
+    of *secure packages* for details) that allows to embed one Codechain
+    into another, with potentially different sets of signers.
+
+We can combine these three points into a governance solution for
+Codechain:
+
+-   We have a "normal" Codechain for the Scrit client and mint, signed
+    by multiple Scrit developers.
+-   We have a "governance" Codechain which contains configuration files
+    and text files, comprising the governance layer of Codechain. The
+    set of signers are all the mints (the number *n* of signers in
+    Codechain) in the system and they "vote" on changes in the
+    governance layer by signing changes to the "governance" Codechain.
+    The necessary quorum (the minimum number of signatures *m* in
+    Codechain) can be the same as the quorum for transactions or higher.
+    Of course, the transcation quorum is also set in the governance
+    Codechain. The configuration files contains all the mints which
+    comprise the system, how they can be reached, what their signature
+    keys are, and what the monetary supply is. Decisions to add miners,
+    remove them, or change the monetary supply are recorded in the
+    governance Codechain and are voted on by mints signing. The entire
+    process is described in a "constitution" text file which is also
+    part of the governance Codechain and is changed by the same
+    mechanism.
+-   The "normal" Codechain for the Scrit client and the mint contains
+    the "governance" Codechain as a secure dependency. That way the
+    client and the mint can automatically and securely update the mint
+    configuration, allowing to transparently add and remove mints from
+    the system.
+-   Since Scrit is not only multi currency capable (multiple currencies
+    in potentially different denominations issued by one set of mints),
+    but also capable of dealing with **different** sets of mints, all
+    these governance problems could easily be solved by each set of
+    mints having their **own** governance Codechain (with their own
+    rules etc.), and **all** governance Codechains added as secure
+    dependencies to the Scrit client.
+
+The whole design gives us a simple solution to the governance problem in
+Scrit:
+
+-   For normal operations (that is, transactions) the mints do not have
+    to talk to each other at all, everything is done **automatically**
+    by the clients talking to all mints separately (but in parallel).
+-   Governance change are decided on **manually** by the mint operatore
+    via signing changes to their governance Codechain, but are then
+    **automatically** distributed to the corresponding Scrit clients and
+    mints via secure dependency updates, as they are happening during
+    regular secure package updates of the client or mint code.
 
 Wallets
 =======
