@@ -1,4 +1,7 @@
-all: distributed.pdf
+all: distributed.pdf bitcoin.png
+
+bitcoin.png:
+	qrencode -s 8 -o $@ 36hMdVaZWUHbsnXfPsJtXe7ZRcU6jciAFt
 
 # conversion with ASCIIToSVG
 # https://github.com/imatix/zguide/tree/master/bin/asciitosvg
