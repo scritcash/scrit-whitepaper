@@ -5,14 +5,72 @@ abstract: |
     Scrit are so-called *digital bearer certificates* (DBCs) issued by
     mints. Scrit mitigates the issuer risk common in other DBC systems by
     employing $n$ mints in parallel. It has the maximally achievable
-    transaction anonymity (the anonymity set of a DBCs equals all DBCs ever
-    issued in that denomination) and transactions are extremly cheap and
-    fast (settlement is network latency bound leadings to sub-second
-    confirmation times).
+    transaction anonymity (the anonymity set of a DBC equals or is bigger
+    than all DBCs ever issued in that denomination during the defined epoch)
+    and transactions are extremly cheap and fast (settlement is network
+    latency bound leadings to sub-second confirmation times).
 author: Jonathan Logan and Frank Braun
-date: '2019-10-14'
+date: '2019-10-24'
 title: 'Scrit: A distributed untraceable electronic cash system'
 ---
+
+Introduction
+============
+
+The problem of previous Chaumiam e-cash systems has been their
+centralization in both a technical and a governance sense, caused by
+employing a single mint. This has exposed these systems to technical and
+legal risks and presented a single point of failure.
+
+Furthermore, Chaumian e-cash systems focus on the model of withdrawing
+e-cash from *accounts* and depositing it into other accounts. This
+requires an unnecessary setup phase for users.
+
+Scrit removes the notion of accounts, it only has direct DBC-to-DBC
+transactions. Users do not have any standing relationship with the
+operators nor do they possess any identifying authentication
+credentials. This both simplifies the system and remove a potential
+level for censorship.
+
+A classical Chaumian e-cash system encodes the attributes of a DBC (for
+example, amount, denomination, and expiry) in the signed message of the
+DBCs. Since the client controls the message, this poses a fraud risk
+that requires complex mitigation, which usually involved using either
+the user's identity or the user's holdings in his account as a
+collateral. In Scrit this fraud risk is removed by using the mint
+signing key as the signifier of certificate attributes. That is, each
+DBC signing key (from the mint) is associated to a unique tuple
+comprised of amount, denomination, and expiry. A successful verfication
+of a signature yields this tuple, the message contents are not
+authoratitive concerning the value of a DBC. Since this removes the
+fraud risk in Scrit, no identification or account is necessary.
+
+Scrit enables technical and legal distribution of DBC operations by
+parallel execution of transactions distributed over many separate mints.
+To accomplish this, we modify the classical construction of a DBC which
+consists of message and signature and replace it with the definition of
+a DBC as consisting of a *unique* message and a *set* of signatures.
+Instead of relying on a unique value certified by a single mint, Scrit
+defines certification a as consensus between mints expressed by
+independent mint signatures. The consensus is reached, if a DBC carries
+enough signatures by different mints to reach a predefined *quorum*.
+That is, a DBC is valid, if it has at least $m$-of-$n$ signatures, where
+$m$ is the quorum and $n$ is the number of mints (as described in detail
+further below).
+
+Since Scrit operations are distributed over a set of mints, the question
+of governance arises. Technically, the solution of the governance
+question is outside the scope of the payment system Scrit itself, but we
+propose a simple governance solution based on Codechain, a system for
+secure multiparty code reviews, which is described in detail in the
+section on governance.
+
+Transactions in Scrit are extremly cheap and fast, especially compared
+to blockchain based systems. Mints do not have to synchronize at all to
+process transactions, which means the communication to all mints can be
+performed in parallel. This leads to network latency bound settlement
+times with sub-second confirmations. See the section on performance for
+details.
 
 DBCs
 ====
@@ -20,41 +78,41 @@ DBCs
 DBCs are single-use digital coins in predifined denominations. The
 denomination, expiry, and currency of these coins are encoded by public
 signing keys employed by *mints* (the issuers of DBCs in Scrit). A
-signature done by a mint guarantuees the authenticity of DBCs. The
-*spendbook* of mint guarantees uniqueness (and thereby prevents double
+signature done by a mint guarantuees the authenticity of a DBC. The
+*spendbook* of a mint guarantees uniqueness (and thereby prevents double
 spends).
 
-DBCs have the following format:
+DBCs consist of a message and a list of signatures. The message contains
+information for looking up signature public keys as well as information
+to enforce ownership and uniqueness. Values for key lookup are amount,
+currency, and expiry, as well as signature algorithm. They refer to an
+entry in the *key list* (see below). Furthermore, the ownership is
+encoded by a hash of an *access control script* (ACS) with which the
+mint verifies the user's authority to execute a transaction. The message
+also contains a random value for uniqueness. The list of signatures
+consists of at most one signature per mint in the network. Signatures
+contain the mint ID in addition to the cryptographic values of the
+signature itself.
 
--   L-Value:
-    -   Amount (4 byte)
-    -   Currency (2 byte)
-    -   Expiry (8 byte)
-    -   Hash(ACS) (32 byte)
-    -   Randome bytes (16 byte)
-    -   Signature algorithm (1 byte)
--   Signatures:
-    -   Mint ID $1$ (4 byte)
-    -   Signature $1$ (at least 32 byte)
-    -   ...
-    -   Mint ID $n$
-    -   Signature $n$ (at least 32 byte)
+Given the fields contained in the DBC (amount, currency, expiry,
+signature algorithm, and mint ID) the signing public key can be looked
+up from the system-wide published key list. Given the retrieved public
+key, the signature can be verified. This ensures that the values set in
+the message of the DBC match the signing key of the mint (otherwise the
+signature would be invalid).
 
-That total size of a DBC is $65 + n * 36$ byte (or more for different
-signature algorithms).
-
-To search for public keys the *key list* of a mint ID (which is given in
-the signature) is searched for the currency, expiry, and amount
-combination given in the DBC.
-
-A key list contains the following data:
-
--   Signature keys:
-    -   Amount, currency, expiry
-    -   Public key
--   Signatures:
-    -   Mint (**TODO**: sig of identity key of mint?)
-    -   Signature keys
+Each mint publishes a list of its DBC signing keys. Per signing key the
+list contains the following information: amount, currency, signature
+algorithm, beginning and end of the signing epoch, the end of the
+validation epoch, and the corresponding unique public key. All entries
+are together signed by both the long-term identity signature key and
+each unique DBC signing key contained in the list. This ensures that the
+private key corresponding to each public key contained in the list is
+actually controlled by the mint identified by the long-term identity
+signature key, which prevents the creation of forged DBCs. The
+association between certification values and the DBC signing key must be
+globally unique (which has to be verified by all clients and mints in
+the system).
 
 Transactions
 ============
@@ -64,20 +122,32 @@ Scrit mints offer only two APIs to the Scrit clients: Perform a
 (which records all spent DBCs).
 
 The spendbook writes entries in the order given below and breaks on
-failure. A transactions works as follows:
+failure. All writes are successful if the value was not contained in the
+spendbook before and fail if the value is already known. A transactions
+works as follows:
 
-1.  Verify transaction.
-2.  Write transaction hash, if know return success.
-3.  Write server parameters, if any is known return failing parameters.
-4.  Write DBCs, if any is known return failing DBCs.
-5.  On success proceed with signing.
+1.  Verify transaction: Verify ACS, verify mint signatures on input
+    DBCs.
+2.  Write transaction hash to spendbook. If transaction hash was known
+    return success and sign output DBCs.
+3.  Write server parameters to spendbook in the order contained in the
+    transaction (if required for signature algorithm). If any parameter
+    is known return failure and abort transaction (on first known
+    parameter).
+4.  Write input DBCs to spendbook in the order contained in the
+    transaction. If any input DBC is known return failure and abort
+    transaction (on first known input DBC).
+5.  Signing output DBCs and return them.
 
-A double spend can lead to loss of coins (**TODO**: explain in more
-detail and maybe move somewhere else).
+If a transaction contains any spent input DBCs after unspent input DBCs,
+the unspent DBCs will be recorded as spent and the transaction will
+abort without returning signed output DBCs. This can only happen, if the
+client attempts to defraud the mint (or the implementer screwed up).
 
 Transaction format
 ------------------
 
+-   Epoch start
 -   In DBCs
 -   Out DBCs: $\mbox{Type(sig)} || \mbox{L-Value (possibly blind)}$
 -   Root of parameter tree (optional, depends on signature algorithm)
@@ -115,7 +185,6 @@ Hash chain: $$CE_{n+1} = \mbox{Counter}||\mbox{Date}||Hash(CE_n)||E$$
 
 -   $E$ can be looked up by API, returns hash chain line.
 -   Last hash chain line returned, if looking up empty $E$.
--   Allows... **TODO ?**
 
 Signing rules:
 
@@ -126,8 +195,8 @@ Signing rules:
 Quorum must be $>51\%$, should be $>75\%$. Quorum for signing can be
 smaller than quorum for membership.
 
-Access control script (AC script)
----------------------------------
+Access control script (ACS)
+---------------------------
 
 The access control script (AC script) of Scrit determines who can spend
 a DBC, similar to the script in Bitcoin transactions.
@@ -155,10 +224,35 @@ Instructions:
 
 **TODO**: finish section
 
+Evidence of payment
+-------------------
+
+**TODO**
+
+Signatures
+==========
+
+**TODO**
+
+Key rotation
+============
+
+**TODO**
+
+-   epoch
+
 Distribution
 ============
 
 ![Scrit client talk to all mints in parallel.](image/distributed.pdf)
+
+-   rules
+-   epoch
+
+Quorum
+------
+
+**TODO**
 
 Governance
 ==========
@@ -280,8 +374,7 @@ reissues the necessary DBC to reach the payment sum for the recipient's
 public key, creating assigned DBCs. He then posts it to the URL. The
 recipient checks locally that he hasn't seen these DBCs before (to
 prevent double spends) and reissues them again (possibly later). This
-gives the sender cryptographic proof of payment. **TODO**: How does the
-proof work?
+gives the sender proof of payment, as described above.
 
 In scenario 2. (only sender online) the sender scans a QR code from the
 recipient containing the payment sum, the DBC public key of the
@@ -291,8 +384,7 @@ reach the payment sum for the recipient's public key, creating assigned
 DBCs. He then opens up a local Bluetooth or WiFi connection to transfer
 them to the recipient. The recipient checks locally that he hasn't seen
 these DBCs before (to prevent double spends) and later reissues them.
-This gives the sender cryptographic proof of payment. **TODO**: How does
-the proof work?
+This gives the sender evidence of payment, as described above.
 
 In scenario 3. (only recipient online) the sender scans a QR code from
 the recipient containing the payment sum, the DBC public key of the
@@ -301,7 +393,7 @@ connection to the recipient. The sender opens up a local Bluetooth or
 WiFi connection to transfer unassigned DBCs to the recipient. The
 recipient immediately reissues them to prevent double spends. The
 recipient confirms the payment, however this does **not** give the
-sender cryptographic proof of payment.
+sender evidince of payment.
 
 In scenario 4. (both offline) the sender scans a QR code from the
 recipient containing the payment sum, the DBC public key of the
@@ -309,8 +401,9 @@ recipient, and configuration data for a local Bluetooth or WiFi
 connection to the recipient. The sender opens up a local Bluetooh or
 WiFi connection to transfer **previously assigned** DBCs to the
 recipient. The recipient checks locally that he hasn't seen these DBCs
-before (to prevent a double spends) and confirms the payments. **TODO**:
-What kind of payment proofs do we get here?
+before (to prevent a double spends) and confirms the payments. This
+gives the sender evidence of payment, as described above, but only
+**after** the recipient reissued the DBC at a later stage.
 
 In theory the transfer from the sender to the recipient could also be
 done via QR codes. But with a larger number of DBCs and/or mints this
@@ -346,6 +439,25 @@ world payment situations (consider it a tip).
 Such simple hardware wallets would be loaded with a trusted device. For
 example, an ATM that we trust (just as we trust cash ATMs) or with a
 desktop client running on a trusted computer.
+
+Performance
+===========
+
+**TODO**
+
+That total size of a DBC in the current implementation is $63 + n * 66$
+byte (or more for different signature algorithms).
+
+Backing
+=======
+
+**TODO**
+
+While Scrit does not define a backing layer, one potential is a backing
+of mint payment infrastructure by Bitcoin as soon as efficient multi
+signature algorithms (for example, Schnorr signatures) are implemented.
+This would allow to extend the control quorum from Scrit mints to their
+backing.
 
 References
 ==========
