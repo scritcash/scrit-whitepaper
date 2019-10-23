@@ -147,21 +147,38 @@ client attempts to defraud the mint (or the implementer screwed up).
 Transaction format
 ------------------
 
--   Epoch start
--   In DBCs
--   Out DBCs: $\mbox{Type(sig)} || \mbox{L-Value (possibly blind)}$
--   Root of parameter tree (optional, depends on signature algorithm)
--   List of AC scripts in order of In DBCs
-    ($\mbox{length(In DBCs)} == \mbox{length(AC scripts)}$)
--   Signatures list (signing the above):
-    -   Type
-    -   Public key
-    -   Signature
--   Parameters (verify against parameter tree)
--   Mint signatures (in order of In DBCs)
+All transactions in Scrit are *reissue*-transactions. They take input
+DBCs and output DBC templates as well as parameters as input, and return
+signed output DBCs. Furthermore, transactions must fulfill conditions
+defined in the ACS referenced by the input DBCs.
 
-Scrit uses a ECC based blind signature scheme published by
-@SinghDas2014.
+Transactions consist of two blocks: A global set of input parameters and
+a mint local set of input parameters.
+
+The global set of input parameters is sent to all mints and contains the
+following:
+
+-   Start of the signing epoch, which refers to start of the key
+    rotation epoch and must be globally coordinated between mints.
+-   Input DBCs: List of unblinded DBC messages, not including mint
+    signatures.
+-   Root of parameter tree (see below).
+-   List of signatures to fulfill ACS that sign all of the above fields.
+-   List of access control scripts in the order of input DBCs.
+
+The mint local set of input parameters that is sent to a single mint
+contains only a list of lists of mint signatures and the corresponding
+path of the parameter tree (including the leaf). The list of lists has
+the same order as the input DBCs and contains the lists of the input DBC
+mint signatures. Usually such a list contains only the mint's own
+signature. Except in cases of mint recovery, see the section on
+distribution below.
+
+This transaction format limits the amount of signatures a client has to
+make, so that it does not depend on the number $n$ of mints in the
+system. Furthermore, it simplifies the implementation of verification
+functions, because it only requires the parallel verification of list
+elements while limiting the impact of $n$ on the required memory.
 
 Parameter tree
 --------------
@@ -234,6 +251,9 @@ Signatures
 
 **TODO**
 
+Scrit uses a ECC based blind signature scheme published by
+@SinghDas2014.
+
 Key rotation
 ============
 
@@ -248,6 +268,7 @@ Distribution
 
 -   rules
 -   epoch
+-   mint recovery
 
 Quorum
 ------
@@ -256,6 +277,9 @@ Quorum
 
 Governance
 ==========
+
+(**TODO**: make sure this section describes the global coordination of
+key lists, including epoch synchronization.)
 
 As mentioned before, the mints do not have to talk to each other to
 perform normal transactions (which are *reissue* = *spend* + *issue*
