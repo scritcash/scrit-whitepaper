@@ -183,11 +183,20 @@ elements while limiting the impact of $n$ on the required memory.
 Parameter tree
 --------------
 
--   Merkle tree of parameters.
--   One leaf per mint, leaf is list of parameters in order of out DBCs.
--   Path included when revealed to mint.
--   Transaction contains signed root.
--   Minimizes signatures in transaction creation.
+The parameter tree contains per mint specific definitions of output.
+Each leaf is assigned to one mint and contains the mint ID and a list of
+tuples. A tuple contains a potentially blinded output DBC message,
+encrypted server blinding parameters (see signature section below), and
+the signing algorithm to use. Furthermore, it contains values required
+for DBC signing key lookup (amount and denomination).
+
+For unblind signing algorithms the server blinding parameters are empty.
+If only unblind signing algorithms are used in the outputs, the same
+leaf is revealed to all mints and the mint ID is set to a global
+constant referring to all mints.
+
+The tree is encoded as a Merkle tree. During transactions leaf and path
+are revealed to the corresponding mint and are verified by it.
 
 Spendbook entries
 -----------------
@@ -243,6 +252,11 @@ Instructions:
 
 Evidence of payment
 -------------------
+
+**TODO**
+
+Protocol flow
+-------------
 
 **TODO**
 
