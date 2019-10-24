@@ -1,6 +1,6 @@
 all: scrit-whitepaper.pdf
 
-scrit-whitepaper.pdf: image/transaction.pdf
+scrit-whitepaper.pdf: image/transaction.pdf image/key-rotation.pdf
 
 %.pdf: %.md %.bib
 	pandoc --standalone --table-of-contents --number-sections \

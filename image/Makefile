@@ -1,4 +1,4 @@
-all: transaction.pdf bitcoin.png
+all: transaction.pdf key-rotation.pdf bitcoin.png
 
 bitcoin.png:
 	qrencode -s 8 -o $@ 36hMdVaZWUHbsnXfPsJtXe7ZRcU6jciAFt
@@ -13,4 +13,4 @@ bitcoin.png:
 
 .PHONY: clean
 clean:
-	rm -f distributed.pdf
+	rm -f transaction.pdf key-rotation.pdf

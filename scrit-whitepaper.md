@@ -283,11 +283,12 @@ Scrit uses a ECC based blind signature scheme published by
 Key rotation
 ============
 
+![Key rotation with disjunct signing epochs.](image/key-rotation.pdf)
+
 **TODO**
 
 -   signing epochs are disjunct
 -   after signing epoch we have a validation epoch
--   add figure
 -   spendbook can be pruned after validation period
 
 Distribution
