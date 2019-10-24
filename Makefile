@@ -1,6 +1,6 @@
 all: scrit-whitepaper.pdf
 
-scrit-whitepaper.pdf: image/distributed.pdf
+scrit-whitepaper.pdf: image/transaction.pdf
 
 %.pdf: %.md %.bib
 	pandoc --standalone --table-of-contents --number-sections \

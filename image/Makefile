@@ -1,4 +1,4 @@
-all: distributed.pdf bitcoin.png
+all: transaction.pdf bitcoin.png
 
 bitcoin.png:
 	qrencode -s 8 -o $@ 36hMdVaZWUHbsnXfPsJtXe7ZRcU6jciAFt

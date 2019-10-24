@@ -268,7 +268,9 @@ Protocol flow
 
 **TODO**
 
--   add figure
+![Protocol flow of a Scrit transaction. Scrit clients talk to all mints
+in parallel (see [Distribution](#distribution)
+section).](image/transaction.pdf)
 
 Signatures
 ==========
@@ -290,8 +292,6 @@ Key rotation
 
 Distribution
 ============
-
-![Scrit client talk to all mints in parallel.](image/distributed.pdf)
 
 -   rules (single mint, recovery)
 -   epoch synchronization
