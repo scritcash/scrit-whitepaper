@@ -180,6 +180,8 @@ system. Furthermore, it simplifies the implementation of verification
 functions, because it only requires the parallel verification of list
 elements while limiting the impact of $n$ on the required memory.
 
+**TODO**: Add figure for transaction format.
+
 Parameter tree
 --------------
 
@@ -260,6 +262,8 @@ Protocol flow
 
 **TODO**
 
+-   add figure
+
 Signatures
 ==========
 
@@ -273,21 +277,30 @@ Key rotation
 
 **TODO**
 
--   epoch
+-   signing epochs are disjunct
+-   after signing epoch we have a validation epoch
+-   add figure
+-   spendbook can be pruned after validation period
 
 Distribution
 ============
 
 ![Scrit client talk to all mints in parallel.](image/distributed.pdf)
 
--   rules
--   epoch
+-   rules (single mint, recovery)
+-   epoch synchronization
 -   mint recovery
+-   changes of $m$ and $n$ must happen at signing epoch borders. That
+    is, changes to $m$ and $n$ only activate at the *next* signing
+    epoch.
+-   signing epoch lengths can be change, but must stay disjunct
 
 Quorum
 ------
 
 **TODO**
+
+-   rules for quorum
 
 Governance
 ==========
