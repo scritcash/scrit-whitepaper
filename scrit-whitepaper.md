@@ -63,14 +63,14 @@ of governance arises. Technically, the solution of the governance
 question is outside the scope of the payment system Scrit itself, but we
 propose a simple governance solution based on Codechain, a system for
 secure multiparty code reviews, which is described in detail in the
-section on governance.
+section on [Governance](#governance).
 
 Transactions in Scrit are extremly cheap and fast, especially compared
 to blockchain based systems. Mints do not have to synchronize at all to
 process transactions, which means the communication to all mints can be
 performed in parallel. This leads to network latency bound settlement
-times with sub-second confirmations. See the section on performance for
-details.
+times with sub-second confirmations. See the section on
+[Performance](#performance) for details.
 
 DBCs
 ====
@@ -86,13 +86,13 @@ DBCs consist of a message and a list of signatures. The message contains
 information for looking up signature public keys as well as information
 to enforce ownership and uniqueness. Values for key lookup are amount,
 currency, and expiry, as well as signature algorithm. They refer to an
-entry in the *key list* (see below). Furthermore, the ownership is
-encoded by a hash of an *access control script* (ACS) with which the
-mint verifies the user's authority to execute a transaction. The message
-also contains a random value for uniqueness. The list of signatures
-consists of at most one signature per mint in the network. Signatures
-contain the mint ID in addition to the cryptographic values of the
-signature itself.
+entry in the *key list* (see [Key list](#key-list) below). Furthermore,
+the ownership is encoded by a hash of an *access control script* (ACS)
+with which the mint verifies the user's authority to execute a
+transaction. The message also contains a random value for uniqueness.
+The list of signatures consists of at most one signature per mint in the
+network. Signatures contain the mint ID in addition to the cryptographic
+values of the signature itself.
 
 Given the fields contained in the DBC (amount, currency, expiry,
 signature algorithm, and mint ID) the signing public key can be looked
@@ -100,6 +100,9 @@ up from the system-wide published key list. Given the retrieved public
 key, the signature can be verified. This ensures that the values set in
 the message of the DBC match the signing key of the mint (otherwise the
 signature would be invalid).
+
+Key list
+--------
 
 Each mint publishes a list of its DBC signing keys. Per signing key the
 list contains the following information: amount, currency, signature
@@ -162,7 +165,8 @@ following:
     rotation epoch and must be globally coordinated between mints.
 -   Input DBCs: List of unblinded DBC messages, not including mint
     signatures.
--   Root of parameter tree (see below).
+-   Root of parameter tree (see [Parameter tree](#parameter-tree)
+    below).
 -   List of signatures to fulfill ACS that sign all of the above fields.
 -   List of access control scripts in the order of input DBCs.
 
@@ -172,7 +176,7 @@ path of the parameter tree (including the leaf). The list of lists has
 the same order as the input DBCs and contains the lists of the input DBC
 mint signatures. Usually such a list contains only the mint's own
 signature. Except in cases of mint recovery, see the section on
-distribution below.
+[Distribution](#distribution) below.
 
 This transaction format limits the amount of signatures a client has to
 make, so that it does not depend on the number $n$ of mints in the
@@ -188,9 +192,9 @@ Parameter tree
 The parameter tree contains per mint specific definitions of output.
 Each leaf is assigned to one mint and contains the mint ID and a list of
 tuples. A tuple contains a potentially blinded output DBC message,
-encrypted server blinding parameters (see signature section below), and
-the signing algorithm to use. Furthermore, it contains values required
-for DBC signing key lookup (amount and denomination).
+encrypted server blinding parameters (see \[Signature\] section below),
+and the signing algorithm to use. Furthermore, it contains values
+required for DBC signing key lookup (amount and denomination).
 
 For unblind signing algorithms the server blinding parameters are empty.
 If only unblind signing algorithms are used in the outputs, the same
@@ -202,6 +206,8 @@ are revealed to the corresponding mint and are verified by it.
 
 Spendbook entries
 -----------------
+
+**TODO** continue here
 
 -   Transaction: $T||\mbox{Hash(Tx)}||\mbox{OOB} \rightarrow E$
 -   Parameters: $P||\mbox{Hash(Param)}||\mbox{Hash(Tx)} \rightarrow E$
@@ -306,7 +312,8 @@ Governance
 ==========
 
 (**TODO**: make sure this section describes the global coordination of
-key lists, including epoch synchronization.)
+key lists (also see [Key list](#key-list), including epoch
+synchronization.)
 
 As mentioned before, the mints do not have to talk to each other to
 perform normal transactions (which are *reissue* = *spend* + *issue*
@@ -425,7 +432,8 @@ reissues the necessary DBC to reach the payment sum for the recipient's
 public key, creating assigned DBCs. He then posts it to the URL. The
 recipient checks locally that he hasn't seen these DBCs before (to
 prevent double spends) and reissues them again (possibly later). This
-gives the sender proof of payment, as described above.
+gives the sender [Evidence of payment](#evidence-of-payment), as
+described above.
 
 In scenario 2. (only sender online) the sender scans a QR code from the
 recipient containing the payment sum, the DBC public key of the
@@ -435,7 +443,8 @@ reach the payment sum for the recipient's public key, creating assigned
 DBCs. He then opens up a local Bluetooth or WiFi connection to transfer
 them to the recipient. The recipient checks locally that he hasn't seen
 these DBCs before (to prevent double spends) and later reissues them.
-This gives the sender evidence of payment, as described above.
+This gives the sender [Evidence of payment](#evidence-of-payment), as
+described above.
 
 In scenario 3. (only recipient online) the sender scans a QR code from
 the recipient containing the payment sum, the DBC public key of the
@@ -444,7 +453,7 @@ connection to the recipient. The sender opens up a local Bluetooth or
 WiFi connection to transfer unassigned DBCs to the recipient. The
 recipient immediately reissues them to prevent double spends. The
 recipient confirms the payment, however this does **not** give the
-sender evidince of payment.
+sender [Evidence of payment](#evidence-of-payment).
 
 In scenario 4. (both offline) the sender scans a QR code from the
 recipient containing the payment sum, the DBC public key of the
