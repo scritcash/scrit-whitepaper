@@ -184,7 +184,7 @@ system. Furthermore, it simplifies the implementation of verification
 functions, because it only requires the parallel verification of list
 elements while limiting the impact of $n$ on the required memory.
 
-**TODO**: Add figure for transaction format.
+![Transaction format (global set).](image/transaction-format.pdf)
 
 Parameter tree
 --------------
@@ -192,9 +192,10 @@ Parameter tree
 The parameter tree contains per mint specific definitions of output.
 Each leaf is assigned to one mint and contains the mint ID and a list of
 tuples. A tuple contains a potentially blinded output DBC message,
-encrypted server blinding parameters (see \[Signature\] section below),
-and the signing algorithm to use. Furthermore, it contains values
-required for DBC signing key lookup (amount and denomination).
+encrypted server blinding parameters (see section on
+[Signatures](#signatures) below), and the signing algorithm to use.
+Furthermore, it contains values required for DBC signing key lookup
+(amount and denomination).
 
 For unblind signing algorithms the server blinding parameters are empty.
 If only unblind signing algorithms are used in the outputs, the same

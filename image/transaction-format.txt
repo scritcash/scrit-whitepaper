@@ -1,0 +1,41 @@
+#------#------------------#--------------------#--------------#-------------#
+| epoch| InDBC1,...,InDBCx| parameter tree root| sig1,...,sigx| ACS1,...ACSx|
+#------#------------------#----------+---------#--------------#-------------#
+                                    / \
+                                   /   \
+                                  /     \
+                                 /       \
+                                /         \
+                               /           \
+                              /             \
+                             /               \
+                            /                 \
+                           /                   \
+                          /                     \
+                         /                       \
+                        /                         \
+                       /                           \
+                      /                             \
+                  #--+--#                         #--+--#
+                  | hash|                         | hash|
+                  #--+--#                         #--+--#
+                    / \                             / \
+                   /   \                           /   \
+                  /     \                         /     \
+                 /       \                       /       \
+                /         \                     /         \
+               /           \                               \
+              /             \                   .           \
+             /               \                  .            \
+            /                 \                 .             \
+           /                   \                               \
+     #----+-----#          #----+-----#                    #----+-----#
+     | mint ID 1|          | mint ID 2|                    | mint ID n|
+     #----------#          #----------#                    #----------#
+          |                                                      |
+{outDBC1,blinding params 1.1,sig algo}   {outDBC1, blinding params n.1,sig algo}
+{outDBC2,blinding params 1.2,sig algo}   {outDBC2, blinding params n.2,sig algo}
+                 .                                         .
+                 .                                         .
+                 .                                         .
+{outDBCy,blinding params 1.y,sig algo}   {outDBCy, blinding params n.y,sig algo}
