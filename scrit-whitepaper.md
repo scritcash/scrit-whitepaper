@@ -280,13 +280,19 @@ over multiple transactions and thus preserves the anonymity of both
 sender and recipient. That is, the recipient $\mbox{PubKey}_r$ can be a
 published constant without sacrificing anonymity.
 
-Referenced state in an ACS refers to the mint's local state. In the case of
-$\mbox{Date}$ this is the system time of the mint in UTC.
+Referenced state in an ACS refers to the mint's local state. In the case
+of $\mbox{Date}$ this is the system time of the mint in UTC.
 
 Evidence of payment
 -------------------
 
-**TODO**
+The combination of a publicly accessible spendbook that contains the
+transactions and the access control script allows for a sender to
+publicly demonstrate that he made a payment that was accepted by the
+recipient. The transaction bears the signatures of the recipient as
+defined by the ACS. Neither the sender nor the mint are able to forge
+this signature. This also allows the owner of a DBC to demonstrate if a
+mint has falsely claimed a DBC to be spent.
 
 Protocol flow
 -------------
