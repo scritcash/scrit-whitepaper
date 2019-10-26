@@ -402,7 +402,8 @@ Signing rules:
 -   changes of $m$ and $n$ must happen at signing epoch borders. That
     is, changes to $m$ and $n$ only activate at the *next* signing
     epoch.
--   signing epoch lengths can be change, but must stay disjunct
+-   signing epoch lengths can be changed, but must stay disjunct
+-   change of monetary supply
 
 Quorum
 ------
@@ -614,7 +615,29 @@ desktop client running on a trusted computer.
 Communication
 =============
 
-**TODO**
+Scrit does not define the means of communication between users. Sets of
+DBCs are simple strings that can be transferred between users by email,
+instant messaging, or any other means. They can also be printed as QR
+codes and used by the sender without a digital device present.
+
+Communication for transactions between users and mints can be very
+efficient if the signature set required is small. For non-recovery
+transactions a single UDP package can usually contain the whole
+transaction. Since the system is idempotent no communication guarantees
+are required. On communication failure the transaction is simply
+repeated with the failing mint. To conceal the content of transactions
+against third parties the transaction package is encrypted to the mint's
+long-term and short-term public encryption keys.
+
+Using single packet UDP requests and responses with encrypted payloads
+allows the development of censorship resilient mint networks.
+
+For recovery or large transactions communication to the mint employs TLS
+over TCP.
+
+Furthermore, the transaction format allows the relaying of transactions
+through active trustless proxies that efficiently distribute the
+transactions over all mints.
 
 Performance
 ===========
