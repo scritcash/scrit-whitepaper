@@ -422,10 +422,6 @@ We suggest a minimum of $n=10$ mints and an $m=8$ quorum.
 Governance
 ==========
 
-(**TODO**: make sure this section describes the global coordination of
-key lists (also see [Key list](#key-list), including epoch
-synchronization.)
-
 As mentioned before, the mints do not have to talk to each other to
 perform normal transactions (which are *reissue* = *spend* + *issue*
 operations). Either an unspent in DBC is presented to them with their
@@ -514,6 +510,10 @@ Scrit:
     **automatically** distributed to the corresponding Scrit clients and
     mints via secure dependency updates, as they are happening during
     regular secure package updates of the client or mint code.
+
+The governance Codechain contains a definition file that includes start
+and lengths of epochs, the mint identity keys, the key lists, and a
+committment of future DBC creation or distruction.
 
 Wallets
 =======
