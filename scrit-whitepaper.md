@@ -140,11 +140,11 @@ works as follows:
 4.  Write input DBCs to spendbook in the order contained in the
     transaction. If any input DBC is known return failure and abort
     transaction (on first known input DBC).
-5.  Signing output DBCs and return them.
+5.  Signing output DBCs and return signature.
 
 If a transaction contains any spent input DBCs after unspent input DBCs,
 the unspent DBCs will be recorded as spent and the transaction will
-abort without returning signed output DBCs. This can only happen, if the
+abort without returning DBC signatures. This can only happen, if the
 client attempts to defraud the mint (or the implementer screwed up).
 
 Transaction format
@@ -152,7 +152,7 @@ Transaction format
 
 All transactions in Scrit are *reissue*-transactions. They take input
 DBCs and output DBC templates as well as parameters as input, and return
-signed output DBCs. Furthermore, transactions must fulfill conditions
+output DBC signatures. Furthermore, transactions must fulfill conditions
 defined in the ACS referenced by the input DBCs.
 
 Transactions consist of two blocks: A global set of input parameters and
@@ -297,7 +297,34 @@ mint has falsely claimed a DBC to be spent.
 Protocol flow
 -------------
 
-**TODO**
+Let's assume the sender has a DBC A for a given recipient constructed
+according to an ACS $0x01$ as described above.
+
+In order to perform a payment the protocol flow is as follows. The
+sender gives the DBC A to the recipient. The recipient *reissues* the
+DBC A to a DBC B, either immediately or before the ACS $\mbox{Date}$
+expires:
+
+1.  The recipient constructs a *transaction* with DBC A as input DBC,
+    DBC B as output DBC, and signs it with the derived
+    $\mbox{PrivKey}_a$.
+2.  The recipient talks to all $n$ mints **in parallel**, sending
+    **each** mint the same global set of input parameters of the
+    constructed transaction, but sending each mint a **different** mint
+    local set of input parameters (as described in the \[Transaction\]
+    section above).
+3.  Each mint verifies the transaction independently of all other mints,
+    signs the output DBC, and returns its signature.
+4.  The recipient collects all the mint's signatures over the output DBC
+    B, combines them into a validly signed DBC B (given he received at
+    least $m$ valid signatures), and saves it in his wallet.
+
+Before starting the transaction the sender might have to reissue a DBC
+to create a suitable DBC A intended for the recipient. This is achieved
+with an analog flow.
+
+The protocol protocol flow for an ACS $0x00$ is similar, but simpler, as
+shown in Figure 2.
 
 ![Protocol flow of a Scrit transaction. Scrit clients talk to all mints
 in parallel (see [Distribution](#distribution)
