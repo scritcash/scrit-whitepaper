@@ -10,7 +10,7 @@ abstract: |
     and transactions are extremly cheap and fast (settlement is network
     latency bound leadings to sub-second confirmation times).
 author: Jonathan Logan and Frank Braun
-date: '2019-10-24'
+date: '2019-10-25'
 title: 'Scrit: A distributed untraceable electronic cash system'
 ---
 
@@ -277,6 +277,8 @@ Signatures
 ==========
 
 **TODO**
+
+-   explain the anonymity claims from the abstract
 
 Scrit uses a ECC based blind signature scheme published by
 @SinghDas2014.
