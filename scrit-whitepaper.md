@@ -387,8 +387,6 @@ Employing key rotation has two important implication:
 
 ![Key rotation with disjunct signing epochs.](image/key-rotation.pdf)
 
-**TODO**
-
 Distribution
 ============
 
@@ -397,9 +395,6 @@ Signing rules:
 -   AC script verify.
 -   Transaction is known or all elements are unique.
 -   Signed by self or signed by quorum.
-
-Quorum must be $>51\%$, should be $>75\%$. Quorum for signing can be
-smaller than quorum for membership.
 
 -   rules (single mint, recovery)
 -   epoch synchronization
@@ -412,9 +407,17 @@ smaller than quorum for membership.
 Quorum
 ------
 
-**TODO**
+As mentioned above DBCs in Scrit contain multiple signatures and are
+valid if the number of signatures is equal or greater than quorum. The
+quorum has to be larger than $n/2$, since any quorum lower than the
+majority of mints would allow the user to multiply DBCs. The upper bound
+of the quorum is only limited by the resilience against mint failure
+that is acceptable. The higher the quorum is, the more mints would have
+to collude in order to to allow dishonest behavior. The lower the quorum
+is, the more mints can fail during operation without interrupting the
+system.
 
--   rules for quorum
+We suggest a minimum of $n=10$ mints and an $m=8$ quorum.
 
 Governance
 ==========
