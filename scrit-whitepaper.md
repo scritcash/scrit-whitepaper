@@ -333,23 +333,45 @@ section).](image/transaction.pdf)
 Signatures
 ==========
 
-**TODO**
+Scrit employs both blind and unlinkable as well as non-blind signature
+schemes.
+
+The non-blind signature schemes are used for user signatures to fullfil
+access control scripts as well as for DBC signatures in scenarios where
+unlinkability of transactions is not a requirement.
 
 -   explain the anonymity claims from the abstract
+-   Scrit uses a ECC based blind signature scheme published by
+    1.  
 
-Scrit uses a ECC based blind signature scheme published by
-@SinghDas2014.
+-   Server blinding parameter scheme.
 
 Key rotation
 ============
 
+To be able to prune the spendbook and not having to keep signing keys
+secret forever, Scrit employs *key rotation* with disjunct signing
+epochs. The signing epochs determines which signing key is used at a
+certain point in time. After the end of a signing epoch follows a
+validation epoch in which DBCs can still be spend. The signing and
+validation epoch together comprise the verification epoch. Figure 3.
+visualizes the key rotation process.
+
+All mints have their own singing keys, but the epochs are the same for
+all of them and have to be synchronized (see section on
+[Governance](#governance)).
+
+Employing key rotation has two important implication:
+
+1.  Clients must go online before the verification epoch of the DBCs
+    they hold ends and reissue them. Otherwise they will loose these
+    DBCs.
+2.  After a validation epoch ended the total number of DBCs in
+    circulation can be calculated with a spendbook audit.
+
 ![Key rotation with disjunct signing epochs.](image/key-rotation.pdf)
 
 **TODO**
-
--   signing epochs are disjunct
--   after signing epoch we have a validation epoch
--   spendbook can be pruned after validation period
 
 Distribution
 ============
