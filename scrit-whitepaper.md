@@ -340,11 +340,27 @@ The non-blind signature schemes are used for user signatures to fullfil
 access control scripts as well as for DBC signatures in scenarios where
 unlinkability of transactions is not a requirement.
 
--   explain the anonymity claims from the abstract
--   Scrit uses a ECC based blind signature scheme published by
-    1.  
+For anonymous blind signatures that allow anonymous and untraceable
+transactions we use a ECC based blind signature scheme published by
+@SinghDas2014. This scheme is based on ECDSA and employs user-generated
+blinding parameters as well as a single use server-generated blinding
+parameter set $Q$ and $K$. The server blinding parameters serve to
+protect the private key of the signer against attacks by the user. For
+the security of this scheme to hold these parameters may not be reused.
+This complicates the mint operation in the sense that blinding
+parameters have to be recorded in the spendbook and have to be exchanged
+partially with the user. Scrit solves this issue by the mint encrypting
+$K$ to its own temporary symmetric key and sending the encrypted $K$ and
+the unencrypted $Q$ to the user. During the transaction $Q$ and the
+encrypted $K$ are send back to the mint and the mint decrypts $K$,
+verifies it against the spendbook, and on success generates one
+signature.
 
--   Server blinding parameter scheme.
+While the unblind signature scheme provides anonymity to the users of
+the system it still allows the creation of a history of DBC transaction.
+Only by using the blind and unlinkable signature scheme does it become
+possible to preserve untraceability and thus increase the anonymity set
+of all DBCs to at least the DBCs issued during one signing epoch.
 
 Key rotation
 ============
