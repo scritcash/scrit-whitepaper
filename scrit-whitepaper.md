@@ -642,10 +642,32 @@ transactions over all mints.
 Performance
 ===========
 
-**TODO**
+A usual transaction consists of the following operations:
 
-That total size of a DBC in the current implementation is $63 + n * 66$
-byte (or more for different signature algorithms).
+1.  Signature verification by the sender.
+2.  Signature generation by the recipient.
+3.  Two signature verifications by the mint.
+4.  Three spendbook operations by the mint.
+5.  One signature by the mint.
+6.  Signature verification by the recipient.
+
+This means that the bounding operations of Scrit are two signature
+verifications, one signature creation, and three spendbook operations
+performed by the mint. These operations are easily distributable over
+multiple processors and hosts. Sharding of the spendbook can easily
+happen without complex committment and synchronization schemes since
+spendbook operations are designed as failure on first known entry.
+
+Current server-grade hardware can perform serveral thousand signing and
+verification operations and several hundred thousand spendbook
+operations per second.
+
+Since single mints can be easily distributed over clusters of hardware
+and mints do not have to synchronize during transactions this system is
+linearly scalable as long as mints scale equally.
+
+This allows for the creation of mints which have an upper transaction
+volume bound by connection bandwith.
 
 Backing
 =======
