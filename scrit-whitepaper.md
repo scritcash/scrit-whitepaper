@@ -715,10 +715,10 @@ Backing
 
 While Scrit does not define a backing layer, a potential one is a
 backing of mint payment infrastructure by Bitcoin as soon as efficient
-multi signature algorithms (for example, Schnorr signatures) are
+multi-signature algorithms (for example, Schnorr signatures) are
 implemented. This would allow to extend the control quorum from Scrit
 mints to their backing. At this point in time a Bitcoin backing is
-already possible with multi signature addresses, but it limits $n$ to
+already possible with multi-signature addresses, but it limits $n$ to
 $15$.
 
 It is also reasonable to envision backing by fiat money, precious
@@ -745,6 +745,24 @@ One method to do this is to reward the traitor with collected penalties
 from other cartel members. It is conceivable that Scrit mint operators
 have to deposit a security which would be transferred to the traitor if
 he can provide evidence for the formation of a cartel.
+
+In such a system, the $n$ mints are divided into groups of size $g=n-m$
+and each mint distributes his security over all of these groups. The
+funds of each of these groups is controlled by a $g$-of-$g$
+multi-signature address. As soon as a mint can present evidence of
+another mint's attempt to form a cartel, that mint's security is
+distributed to the witness while the cartel forming mint is excluded
+from $n$.
+
+This method would allow to create an pseudonymous mint network. The only
+way to create a cartel in such a pseudonymous mint network is to sign
+the relevant communication which also creates proof of cartel forming
+activity. Unauthenticated communication towards this goal is
+indistinguishable from a member being tested towards his inclination for
+cartel membership. However, this method does not prevent Sybill attacks.
+
+Conclusion
+==========
 
 References
 ==========
