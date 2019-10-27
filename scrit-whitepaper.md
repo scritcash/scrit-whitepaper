@@ -10,7 +10,7 @@ abstract: |
     and transactions are extremly cheap and fast (settlement is network
     latency bound leadings to sub-second confirmation times).
 author: Jonathan Logan and Frank Braun
-date: '2019-10-26'
+date: '2019-10-27'
 title: 'Scrit: A distributed untraceable electronic cash system'
 ---
 
@@ -383,7 +383,8 @@ Employing key rotation has two important implication:
     they hold ends and reissue them. Otherwise they will loose these
     DBCs.
 2.  After a validation epoch ended the total number of DBCs in
-    circulation can be calculated with a spendbook audit.
+    circulation can be calculated with a spendbook audit and compared
+    between the mints.
 
 ![Key rotation with disjunct signing epochs.](image/key-rotation.pdf)
 
@@ -712,13 +713,38 @@ volume bound by connection bandwith.
 Backing
 =======
 
-**TODO**
+While Scrit does not define a backing layer, a potential one is a
+backing of mint payment infrastructure by Bitcoin as soon as efficient
+multi signature algorithms (for example, Schnorr signatures) are
+implemented. This would allow to extend the control quorum from Scrit
+mints to their backing. At this point in time a Bitcoin backing is
+already possible with multi signature addresses, but it limits $n$ to
+$15$.
 
-While Scrit does not define a backing layer, one potential is a backing
-of mint payment infrastructure by Bitcoin as soon as efficient multi
-signature algorithms (for example, Schnorr signatures) are implemented.
-This would allow to extend the control quorum from Scrit mints to their
-backing.
+It is also reasonable to envision backing by fiat money, precious
+metals, or any other valuables. Enforcing sound backing operations is
+outside the scope of Scrit itself. It is also possible to operate a
+Scrit mint network without any backing at all.
+
+Cartel theory
+-------------
+
+Cartels are colluding groups of system participants that conspire and
+coordinate to undermine the rules of the system. Cartels do not come
+into existence completely formed, but require communication and
+negotiation before they can become effective. During this time a cartel
+does not pose a threat to the system yet. Both during formation and
+operation a cartel is vulnerable to members that commit treason against
+it.
+
+The lesson drawn from this has been to incentivice traitors against the
+cartel in order to make cartels more brittle and potentially undermine
+their formation.
+
+One method to do this is to reward the traitor with collected penalties
+from other cartel members. It is conceivable that Scrit mint operators
+have to deposit a security which would be transferred to the traitor if
+he can provide evidence for the formation of a cartel.
 
 References
 ==========
