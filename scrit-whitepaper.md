@@ -764,5 +764,24 @@ cartel membership. However, this method does not prevent Sybill attacks.
 Conclusion
 ==========
 
+Scrit is a very fast, extremely cheap, and linearly scalable distributed
+untraceable electronic cash system with a flexible backing and
+governance structure. Employing a blind and unlinkable signature scheme
+for its DBCs makes Scrit censorship resistant against rogue mints. Its
+network communication protocol, with very short encrypted packages that
+is proxy capable, makes it censorship resistant against network filters.
+
+It is not permissionless for mint operators, but it can be combined with
+permissionless backings like Bitcoin, creating a second-layer solution
+with very interesting properties, that make it a good fit for
+user-to-machine and machine-to-machine (micro-)payments.
+
+Its trust model makes Scrit very suitable as a value transfer system,
+but it should not be viewed as a long-term store of value.
+
+Scrit revives the concept of Chaumian e-cash and adds federation to it.
+It allows to perform simple offline payments, a feature that to the best
+of our knowledge no other digital payment system has.
+
 References
 ==========
