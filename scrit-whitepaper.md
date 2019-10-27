@@ -719,7 +719,8 @@ multi-signature algorithms (for example, Schnorr signatures) are
 implemented. This would allow to extend the control quorum from Scrit
 mints to their backing. At this point in time a Bitcoin backing is
 already possible with multi-signature addresses, but it limits $n$ to
-$15$.
+$15$, alternatively multiparty threshold ECDSA signature schemes can
+be used for higher $n$.
 
 It is also reasonable to envision backing by fiat money, precious
 metals, or any other valuables. Enforcing sound backing operations is
