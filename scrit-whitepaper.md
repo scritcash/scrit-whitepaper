@@ -8,7 +8,7 @@ abstract: |
     transaction anonymity (the anonymity set of a DBC equals or is bigger
     than all DBCs ever issued in that denomination during the defined epoch)
     and transactions are extremely cheap and fast (settlement is network
-    latency bound leadings to sub-second confirmation times).
+    latency bound leading to sub-second confirmation times).
 author: Jonathan Logan and Frank Braun
 date: '2019-10-27'
 title: 'Scrit: A distributed untraceable electronic cash system'
@@ -47,12 +47,12 @@ fraud risk in Scrit, no identification or account is necessary.
 
 Scrit enables technical and legal distribution of DBC operations by
 parallel execution of transactions distributed over many separate mints.
-To accomplish this, we modify the classical construction of a DBC which
-consists of message and signature and replace it with the definition of
+To accomplish this, we modify the classical construction of a DBC, which
+consists of message and signature, and replace it with the definition of
 a DBC as consisting of a *unique* message and a *set* of signatures.
 Instead of relying on a unique value certified by a single mint, Scrit
 defines certification a as consensus between mints expressed by
-independent mint signatures. The consensus is reached, if a DBC carries
+independent mint signatures. The consensus is reached if a DBC carries
 enough signatures by different mints to reach a predefined *quorum*.
 That is, a DBC is valid, if it has at least $m$-of-$n$ signatures, where
 $m$ is the quorum and $n$ is the number of mints (as described in detail
@@ -120,9 +120,10 @@ the system).
 Transactions
 ============
 
-Scrit mints offer only two APIs to the Scrit clients: Perform a
-*transaction* (also called a *reissue*) and a lookup in the spendbook
-(which records all spent DBCs).
+Scrit mints offer only three APIs to the Scrit clients: Perform a
+*transaction* (also called a *reissue*), a lookup in the spendbook
+(which records all spent DBCs), and retrieving the number of currently
+valid DBCs for a mint's signature key (to assess anonymity set sizes).
 
 The spendbook writes entries in the order given below and breaks on
 failure. All writes are successful if the value was not contained in the
@@ -151,7 +152,7 @@ Transaction format
 ------------------
 
 All transactions in Scrit are *reissue*-transactions. They take input
-DBCs and output DBC templates as well as parameters as input, and return
+DBCs and output DBC messages as well as parameters as input, and return
 output DBC signatures. Furthermore, transactions must fulfill conditions
 defined in the ACS referenced by the input DBCs.
 
@@ -273,7 +274,7 @@ follows:
 
 If the recipient doesn't sign a valid transaction before $\mbox{Date}$
 expires, the sender can recover the DBC by signing a transaction with
-$b$ (which he has to record).
+$b$ (which he has to store).
 
 The above construction prevents the mints from recognizing the recipient
 over multiple transactions and thus preserves the anonymity of both
@@ -298,16 +299,15 @@ Protocol flow
 -------------
 
 Let's assume the sender has a DBC A for a given recipient constructed
-according to an ACS $0x01$ as described above.
+according to an ACS type $0x01$ as described above.
 
 In order to perform a payment the protocol flow is as follows. The
-sender gives the DBC A to the recipient. The recipient *reissues* the
-DBC A to a DBC B, either immediately or before the ACS $\mbox{Date}$
+sender gives the DBC A to the recipient. The recipient reissues the DBC
+A to a DBC B, either immediately or before the ACS $\mbox{Date}$
 expires:
 
-1.  The recipient constructs a *transaction* with DBC A as input DBC,
-    DBC B as output DBC, and signs it with the derived
-    $\mbox{PrivKey}_a$.
+1.  The recipient constructs a transaction with DBC A as input DBC, DBC
+    B as output DBC, and signs it with the derived $\mbox{PrivKey}_a$.
 2.  The recipient talks to all $n$ mints **in parallel**, sending
     **each** mint the same global set of input parameters of the
     constructed transaction, but sending each mint a **different** mint
@@ -323,12 +323,11 @@ Before starting the transaction the sender might have to reissue a DBC
 to create a suitable DBC A intended for the recipient. This is achieved
 with an analog flow.
 
-The protocol protocol flow for an ACS $0x00$ is similar, but simpler, as
-shown in Figure 2.
+The protocol protocol flow for an ACS type $0x00$ is similar, but
+simpler, as shown in Figure 2.
 
-![Protocol flow of a Scrit transaction. Scrit clients talk to all mints
-in parallel (see [Distribution](#distribution)
-section).](image/transaction.pdf)
+![Protocol flow of a Scrit transaction with an ACS type $0x00$. Scrit
+clients talk to all mints in parallel.](image/transaction.pdf)
 
 Signatures
 ==========
@@ -343,18 +342,18 @@ unlinkability of transactions is not a requirement.
 For anonymous blind signatures that allow anonymous and untraceable
 transactions we use a ECC based blind signature scheme published by
 @SinghDas2014. This scheme is based on ECDSA and employs user-generated
-blinding parameters as well as a single use server-generated blinding
-parameter set $Q$ and $K$. The server blinding parameters serve to
-protect the private key of the signer against attacks by the user. For
-the security of this scheme to hold these parameters may not be reused.
-This complicates the mint operation in the sense that blinding
-parameters have to be recorded in the spendbook and have to be exchanged
-partially with the user. Scrit solves this issue by the mint encrypting
-$K$ to its own temporary symmetric key and sending the encrypted $K$ and
-the unencrypted $Q$ to the user. During the transaction $Q$ and the
-encrypted $K$ are send back to the mint and the mint decrypts $K$,
-verifies it against the spendbook, and on success generates one
-signature.
+blinding parameters as well as a single-use server-generated blinding
+parameter set consisting of $Q$ and $K$. The server blinding parameters
+serve to protect the private key of the signer against attacks by the
+user. For the security of this scheme to hold these parameters may not
+be reused. This complicates the mint operation in the sense that
+blinding parameters have to be recorded in the spendbook and have to be
+exchanged partially with the user. Scrit solves this issue by the mint
+encrypting $K$ to its own temporary symmetric key and sending the
+encrypted $K$ and the unencrypted $Q$ to the user. During the
+transaction $Q$ and the encrypted $K$ are send back to the mint and the
+mint decrypts $K$, verifies it against the spendbook, and on success
+generates one signature.
 
 While the unblind signature scheme provides anonymity to the users of
 the system it still allows the creation of a history of DBC transaction.
@@ -427,11 +426,12 @@ of mints can cascade and invalidate DBCs due to a lack of signatures.
 Temporary or permanent unavailability of single mints, as long as the
 quorum remains fulfilled, does not undermine the ability of Scrit to
 perform transactions. The later addition of new mints and the ability to
-add them to the quorum allows for enough dynamism for a Scrit network to
+add them to the quorum allows enough dynamism for a Scrit network to
 heal.
 
-New mints do not have to know any spendbook other mint to participate in
-the network, of the signing keys is required.
+New mints do not have to know any spendbook of other mints in order to
+participate in the network. Only knowledge of the public signing keys is
+required.
 
 Change of monetary supply
 -------------------------
@@ -444,7 +444,7 @@ mints from increasing the monetary supply.
 Reducing the monetary supply requires the spending of DBCs without
 issuing new ones. For this DBCs can simply be reissued to an ACS that
 provably unusable. These DBCs fall out of the circulation at the end of
-their verification epoch.
+their verification epoch, effectively reducing the monetary supply.
 
 Quorum
 ------
@@ -747,8 +747,8 @@ have to deposit a security which would be transferred to the traitor if
 he can provide evidence for the formation of a cartel.
 
 In such a system, the $n$ mints are divided into groups of size $g=n-m$
-and each mint distributes his security over all of these groups. The
-funds of each of these groups is controlled by a $g$-of-$g$
+and each mint distributes his security equally over all of these groups.
+The funds of each of these groups is controlled by a $g$-of-$g$
 multi-signature address. As soon as a mint can present evidence of
 another mint's attempt to form a cartel, that mint's security is
 distributed to the witness while the cartel forming mint is excluded
