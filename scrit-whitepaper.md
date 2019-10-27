@@ -7,7 +7,7 @@ abstract: |
     employing $n$ mints in parallel. It has the maximally achievable
     transaction anonymity (the anonymity set of a DBC equals or is bigger
     than all DBCs ever issued in that denomination during the defined epoch)
-    and transactions are extremly cheap and fast (settlement is network
+    and transactions are extremely cheap and fast (settlement is network
     latency bound leadings to sub-second confirmation times).
 author: Jonathan Logan and Frank Braun
 date: '2019-10-27'
@@ -40,9 +40,9 @@ the user's identity or the user's holdings in his account as a
 collateral. In Scrit this fraud risk is removed by using the mint
 signing key as the signifier of certificate attributes. That is, each
 DBC signing key (from the mint) is associated to a unique tuple
-comprised of amount, denomination, and expiry. A successful verfication
+comprised of amount, denomination, and expiry. A successful verification
 of a signature yields this tuple, the message contents are not
-authoratitive concerning the value of a DBC. Since this removes the
+authoritative concerning the value of a DBC. Since this removes the
 fraud risk in Scrit, no identification or account is necessary.
 
 Scrit enables technical and legal distribution of DBC operations by
@@ -65,7 +65,7 @@ propose a simple governance solution based on Codechain, a system for
 secure multiparty code reviews, which is described in detail in the
 section on [Governance](#governance).
 
-Transactions in Scrit are extremly cheap and fast, especially compared
+Transactions in Scrit are extremely cheap and fast, especially compared
 to blockchain based systems. Mints do not have to synchronize at all to
 process transactions, which means the communication to all mints can be
 performed in parallel. This leads to network latency bound settlement
@@ -75,10 +75,10 @@ times with sub-second confirmations. See the section on
 DBCs
 ====
 
-DBCs are single-use digital coins in predifined denominations. The
+DBCs are single-use digital coins in predefined denominations. The
 denomination, expiry, and currency of these coins are encoded by public
 signing keys employed by *mints* (the issuers of DBCs in Scrit). A
-signature done by a mint guarantuees the authenticity of a DBC. The
+signature done by a mint guarantees the authenticity of a DBC. The
 *spendbook* of a mint guarantees uniqueness (and thereby prevents double
 spends).
 
@@ -236,7 +236,7 @@ Clients can access all of these records through an open API.
 Access Control Script (ACS)
 ---------------------------
 
-Scrit mints enforce access control for DBCs through a paramter encoded
+Scrit mints enforce access control for DBCs through a parameter encoded
 in the DBCs which is called the *access control script* (ACS). Such an
 ACS can enforce that transactions using a certain DBC have to be signed
 by a user-controlled key. We define multiple access control languages
@@ -266,7 +266,7 @@ follows:
     $$\mbox{PubKey}_a=\mbox{scalarMult(s,aG)}$$
 7.  Sender constructs ACS as:
     $$0x01||\mbox{Date}||\mbox{PubKey}_a||\mbox{PubKey}_b$$
-8.  Recipient calculates shared secred:
+8.  Recipient calculates shared secret:
     $$s=\mbox{Hash(scalarMult(a,bG))}$$
 9.  Recipient calculates signing key: $$\mbox{PrivKey}_a=as$$
 10. Recipient signs transaction.
@@ -336,7 +336,7 @@ Signatures
 Scrit employs both blind and unlinkable as well as non-blind signature
 schemes.
 
-The non-blind signature schemes are used for user signatures to fullfil
+The non-blind signature schemes are used for user signatures to fulfill
 access control scripts as well as for DBC signatures in scenarios where
 unlinkability of transactions is not a requirement.
 
@@ -414,24 +414,24 @@ changed, but must stay disjunct, meaning signing epochs may never
 overlap.
 
 The signing epoch for output DBCs is enforced by the epoch field in the
-transaction so that no decisionary ambiguity exists at signing epoch
+transaction so that no decisional ambiguity exists at signing epoch
 boundaries.
 
-During normal operations a user only has to fullfil rule 1. by sending
+During normal operations a user only has to fulfill rule 1. by sending
 one signature to the corresponding mint per reissue transaction. Only if
 not all signatures of all mints can be collected for a DBC it may become
 necessary to employ rule 2. in a subsequent transaction. Users' clients
 should always try to complete the set of signatures, otherwise failures
 of mints can cascade and invalidate DBCs due to a lack of signatures.
 
-Temporary or permanent inavailablity of single mints, as long as the
+Temporary or permanent unavailability of single mints, as long as the
 quorum remains fulfilled, does not undermine the ability of Scrit to
 perform transactions. The later addition of new mints and the ability to
 add them to the quorum allows for enough dynamism for a Scrit network to
 heal.
 
-New mints do not have to know any spendbook other mint to participiate
-in the network, of the signing keys is required.
+New mints do not have to know any spendbook other mint to participate in
+the network, of the signing keys is required.
 
 Change of monetary supply
 -------------------------
@@ -519,7 +519,7 @@ Codechain:
     governance layer by signing changes to the "governance" Codechain.
     The necessary quorum (the minimum number of signatures *m* in
     Codechain) can be the same as the quorum for transactions or higher.
-    Of course, the transcation quorum is also set in the governance
+    Of course, the transaction quorum is also set in the governance
     Codechain. The configuration files contains all the mints which
     comprise the system, how they can be reached, what their signature
     keys are, and what the monetary supply is. Decisions to add miners,
@@ -547,7 +547,7 @@ Scrit:
 -   For normal operations (that is, transactions) the mints do not have
     to talk to each other at all, everything is done **automatically**
     by the clients talking to all mints separately (but in parallel).
--   Governance change are decided on **manually** by the mint operatore
+-   Governance change are decided on **manually** by the mint operator
     via signing changes to their governance Codechain, but are then
     **automatically** distributed to the corresponding Scrit clients and
     mints via secure dependency updates, as they are happening during
@@ -555,7 +555,7 @@ Scrit:
 
 The governance Codechain contains a definition file that includes start
 and lengths of epochs, the mint identity keys, the key lists, and a
-committment of future DBC creation or distruction.
+commitment of future DBC creation or destruction.
 
 Wallets
 =======
@@ -611,7 +611,7 @@ sender [Evidence of payment](#evidence-of-payment).
 In scenario 4. (both offline) the sender scans a QR code from the
 recipient containing the payment sum, the DBC public key of the
 recipient, and configuration data for a local Bluetooth or WiFi
-connection to the recipient. The sender opens up a local Bluetooh or
+connection to the recipient. The sender opens up a local Bluetooth or
 WiFi connection to transfer **previously assigned** DBCs to the
 recipient. The recipient checks locally that he hasn't seen these DBCs
 before (to prevent a double spends) and confirms the payments. This
@@ -696,10 +696,10 @@ This means that the bounding operations of Scrit are two signature
 verifications, one signature creation, and three spendbook operations
 performed by the mint. These operations are easily distributable over
 multiple processors and hosts. Sharding of the spendbook can easily
-happen without complex committment and synchronization schemes since
+happen without complex commitment and synchronization schemes since
 spendbook operations are designed as failure on first known entry.
 
-Current server-grade hardware can perform serveral thousand signing and
+Current server-grade hardware can perform several thousand signing and
 verification operations and several hundred thousand spendbook
 operations per second.
 
@@ -708,7 +708,7 @@ and mints do not have to synchronize during transactions this system is
 linearly scalable as long as mints scale equally.
 
 This allows for the creation of mints which have an upper transaction
-volume bound by connection bandwith.
+volume bound by connection bandwidth.
 
 Backing
 =======
@@ -737,7 +737,7 @@ does not pose a threat to the system yet. Both during formation and
 operation a cartel is vulnerable to members that commit treason against
 it.
 
-The lesson drawn from this has been to incentivice traitors against the
+The lesson drawn from this has been to incentivize traitors against the
 cartel in order to make cartels more brittle and potentially undermine
 their formation.
 
