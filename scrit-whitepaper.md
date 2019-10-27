@@ -159,7 +159,7 @@ Transactions consist of two blocks: A global set of input parameters and
 a mint local set of input parameters.
 
 The global set of input parameters is sent to all mints and contains the
-following:
+following (see Figure 1):
 
 -   Start of the signing epoch, which refers to start of the key
     rotation epoch and must be globally coordinated between mints.
@@ -390,20 +390,60 @@ Employing key rotation has two important implication:
 Distribution
 ============
 
-Signing rules:
+Scrit defines a valid DBC as a message signed by at least $m$-of-$n$
+mints that is **not** recored in the mints' spendbooks.
 
--   AC script verify.
--   Transaction is known or all elements are unique.
--   Signed by self or signed by quorum.
+From this follows that a mint shall reissue a DBC if any of the
+following two rules is satisfied:
 
--   rules (single mint, recovery)
--   epoch synchronization
--   mint recovery
--   changes of $m$ and $n$ must happen at signing epoch borders. That
-    is, changes to $m$ and $n$ only activate at the *next* signing
-    epoch.
--   signing epoch lengths can be changed, but must stay disjunct
--   change of monetary supply
+1.  A DBC message is not found in the spendbook and the DBC message is
+    signed by the mint itself.
+2.  A DBC message is not found in the spendbook and the DBC messaged is
+    signed by at least $m$-of-$n$ other mints.
+
+For these rules to be sufficient the signing public keys for case 2.
+must belong to the same epoch and the signing keys must be globally
+unique. Furthermore, this requires that only one signing key per mint
+and per epoch exists.
+
+$m$ and $n$ can therefore only change at the start of a signing epoch.
+However, $n$, the total number of mints, can be decreased at any time as
+long as it stays equal or bigger than $m$. Signing epoch lengths can be
+changed, but must stay disjunct, meaning signing epochs may never
+overlap.
+
+The signing epoch for output DBCs is enforced by the epoch field in the
+transaction so that no decisionary ambiguity exists at signing epoch
+boundaries.
+
+During normal operations a user only has to fullfil rule 1. by sending
+one signature to the corresponding mint per reissue transaction. Only if
+not all signatures of all mints can be collected for a DBC it may become
+necessary to employ rule 2. in a subsequent transaction. Users' clients
+should always try to complete the set of signatures, otherwise failures
+of mints can cascade and invalidate DBCs due to a lack of signatures.
+
+Temporary or permanent inavailablity of single mints, as long as the
+quorum remains fulfilled, does not undermine the ability of Scrit to
+perform transactions. The later addition of new mints and the ability to
+add them to the quorum allows for enough dynamism for a Scrit network to
+heal.
+
+New mints do not have to know any spendbook other mint to participiate
+in the network, of the signing keys is required.
+
+Change of monetary supply
+-------------------------
+
+Increasing the monetary supply consists of issuing new DBCs without
+spending existing DBCs. For this to be possible mints have to coordinate
+the DBC message to be signed. This prevents lower than quorum colluding
+mints from increasing the monetary supply.
+
+Reducing the monetary supply requires the spending of DBCs without
+issuing new ones. For this DBCs can simply be reissued to an ACS that
+provably unusable. These DBCs fall out of the circulation at the end of
+their verification epoch.
 
 Quorum
 ------
