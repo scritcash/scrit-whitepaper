@@ -476,7 +476,7 @@ earlier reissue operation or simply didn't exist yet.
 However, this still leaves a few questions open: How is new money
 introduced into the system and the (optional) backing (a pure *issue*
 operation of new DBCs)? How is money removed from the system and the
-(optional) backing a (pure *spend* operation of DBCs)? How are new mints
+(optional) backing (a pure *spend* operation of DBCs)? How are new mints
 introduced into the system or existing ones removed from it? Under what
 rules do the mints operate? How does a client get to know which mints
 belong to the system and which changes are made, ideally in an automatic
