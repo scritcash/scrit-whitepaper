@@ -708,7 +708,7 @@ Current server-grade hardware can perform several thousand signing and
 verification operations and several hundred thousand spendbook
 operations per second.
 
-Since single mints can be easily distributed over clusters of hardware
+Since single mints can easily be distributed over clusters of hardware
 and mints do not have to synchronize during transactions this system is
 linearly scalable as long as mints scale equally.
 
