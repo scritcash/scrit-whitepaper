@@ -467,8 +467,8 @@ Governance
 
 As mentioned before, the mints do not have to talk to each other to
 perform normal transactions (which are *reissue* = *spend* + *issue*
-operations). Either an unspent in DBC is presented to them with their
-**own** signature or an in DBC with enough signatures of **other**
+operations). Either an unspent input DBC is presented to them with their
+**own** signature or an input DBC with enough signatures of **other**
 mints, such that the signatures reach quorum. The former is the normal
 case. The latter can happen when a mint wasn't reachable during an
 earlier reissue operation or simply didn't exist yet.
