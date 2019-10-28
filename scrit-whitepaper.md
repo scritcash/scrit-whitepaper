@@ -29,7 +29,7 @@ requires an unnecessary setup phase for users.
 Scrit removes the notion of accounts, it only has direct DBC-to-DBC
 transactions. Users do not have any standing relationship with the
 operators nor do they possess any identifying authentication
-credentials. This both simplifies the system and remove a potential
+credentials. This both simplifies the system and removes a potential
 level for censorship.
 
 A classical Chaumian e-cash system encodes the attributes of a DBC (for
