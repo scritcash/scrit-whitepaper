@@ -367,7 +367,7 @@ Key rotation
 
 To be able to prune the spendbook and not having to keep signing keys
 secret forever, Scrit employs *key rotation* with disjunct signing
-epochs. The signing epochs determines which signing key is used at a
+epochs. The signing epoch determines which signing key is used at a
 certain point in time. After the end of a signing epoch follows a
 validation epoch in which DBCs can still be spend. The signing and
 validation epoch together comprise the verification epoch. Figure 3.
