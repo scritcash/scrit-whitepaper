@@ -5,7 +5,7 @@ abstract: |
     Scrit are so-called *digital bearer certificates* (DBCs) issued by
     mints. Scrit mitigates the issuer risk common in other DBC systems by
     employing $n$ mints in parallel. It has the maximally achievable
-    transaction anonymity (the anonymity set of a DBC equals or is bigger
+    transaction anonymity (the anonymity set of a DBC equals or is greater
     than all DBCs ever issued in that denomination during the defined epoch)
     and transactions are extremely cheap and fast (settlement is network
     latency bound leading to sub-second confirmation times).
@@ -409,7 +409,7 @@ and per epoch exists.
 
 $m$ and $n$ can therefore only change at the start of a signing epoch.
 However, $n$, the total number of mints, can be decreased at any time as
-long as it stays equal or bigger than $m$. Signing epoch lengths can be
+long as it stays equal or greater than $m$. Signing epoch lengths can be
 changed, but must stay disjunct, meaning signing epochs may never
 overlap.
 
