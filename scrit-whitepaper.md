@@ -752,7 +752,7 @@ have to deposit a security which would be transferred to the traitor if
 he can provide evidence of the formation of a cartel.
 
 In such a system, the $n$ mints are divided into groups of size $g=n-m$
-and each mint distributes his security equally over all of these groups.
+and each mint distributes its security equally over all of these groups.
 The funds of each of these groups is controlled by a $g$-of-$g$
 multi-signature address. As soon as a mint can present evidence of
 another mint's attempt to form a cartel, that mint's security is
