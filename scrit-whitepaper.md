@@ -132,7 +132,7 @@ works as follows:
 
 1.  Verify transaction: Verify ACS, verify mint signatures on input
     DBCs.
-2.  Write transaction hash to spendbook. If transaction hash was known
+2.  Test if transaction has already been added to spendbook, if yes
     return success and sign output DBCs.
 3.  Write server parameters to spendbook in the order contained in the
     transaction (if required for signature algorithm). If any parameter
@@ -141,7 +141,8 @@ works as follows:
 4.  Write input DBCs to spendbook in the order contained in the
     transaction. If any input DBC is known return failure and abort
     transaction (on first known input DBC).
-5.  Signing output DBCs and return signature.
+5.  Write transaction hash to spendbook.
+6.  Signing output DBCs and return signature.
 
 If a transaction contains any spent input DBCs after unspent input DBCs,
 the unspent DBCs will be recorded as spent and the transaction will
