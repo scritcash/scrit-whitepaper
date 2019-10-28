@@ -521,7 +521,7 @@ Codechain:
     The necessary quorum (the minimum number of signatures *m* in
     Codechain) can be the same as the quorum for transactions or higher.
     Of course, the transaction quorum is also set in the governance
-    Codechain. The configuration files contains all the mints which
+    Codechain. The configuration files contain all the mints which
     comprise the system, how they can be reached, what their signature
     keys are, and what the monetary supply is. Decisions to add miners,
     remove them, or change the monetary supply are recorded in the
