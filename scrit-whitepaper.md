@@ -501,7 +501,7 @@ points are important:
     contain configuration data and text files.
 
 2.  The set of signers of a Codechain doesn't have to be the group of
-    developers. It could also be another group, like all the mints.
+    developers. It could also be another group, such as all the mints.
 
 3.  Codechain contains a mechanism called *secure dependencies* (see the
     [specification](https://godoc.org/github.com/frankbraun/codechain/secpkg)
