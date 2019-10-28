@@ -634,15 +634,15 @@ Hardware wallets
 
 A simple hardware wallet would consist of a mass storage device, a
 display, and a single button. It basically handles scenario 3. (only
-recipient online) or 4. above (both offline) above. The mass storage
-device contains DBCs in different denominations. When connecting the
-hardware wallet to the POS terminal (via USB, NFC, or other means) the
-POS terminal requests a certain sum. The hardware wallet shows the
-requested sum on the display and waits for confirmation via a button
-press. Upon confirmation the hardware wallet would select the
-corresponding DBCs, transfer them to the recipient, and delete them.
-Depending on the scenario, the recipient would either reissue
-immediately (for unassigned DBCs) or later (for assigned ones).
+recipient online) or 4. (both offline) above. The mass storage device
+contains DBCs in different denominations. When connecting the hardware
+wallet to the POS terminal (via USB, NFC, or other means) the POS
+terminal requests a certain sum. The hardware wallet shows the requested
+sum on the display and waits for confirmation via a button press. Upon
+confirmation the hardware wallet would select the corresponding DBCs,
+transfer them to the recipient, and delete them. Depending on the
+scenario, the recipient would either reissue immediately (for unassigned
+DBCs) or later (for assigned ones).
 
 Since a very simple hardware wallet cannot check the validity of DBCs we
 do not deal with change. When loading up hardware wallets the
