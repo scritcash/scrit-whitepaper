@@ -749,7 +749,7 @@ their formation.
 One method to do this is to reward the traitor with collected penalties
 from other cartel members. It is conceivable that Scrit mint operators
 have to deposit a security which would be transferred to the traitor if
-he can provide evidence for the formation of a cartel.
+he can provide evidence of the formation of a cartel.
 
 In such a system, the $n$ mints are divided into groups of size $g=n-m$
 and each mint distributes his security equally over all of these groups.
