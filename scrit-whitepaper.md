@@ -697,7 +697,7 @@ A usual transaction consists of the following operations:
 5.  One signature by the mint.
 6.  Signature verification by the recipient.
 
-This means that the bounding operations of Scrit are two signature
+Hence the performance of Scrit is limited by two signature
 verifications, one signature creation, and three spendbook operations
 performed by the mint. These operations are easily distributable over
 multiple processors and hosts. Sharding of the spendbook can easily
@@ -723,7 +723,7 @@ backing of mint payment infrastructure by Bitcoin as soon as efficient
 multi-signature algorithms (for example, Schnorr signatures) are
 implemented. This would allow to extend the control quorum from Scrit
 mints to their backing. At this point in time a Bitcoin backing is
-already possible with multi-signature addresses, but it limits $n$ to
+already possible with multi-signature addresses, but this would limit $n$ to
 $15$.
 
 It is also reasonable to envision backing by fiat money, precious
