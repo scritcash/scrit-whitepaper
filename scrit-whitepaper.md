@@ -443,7 +443,7 @@ the DBC message to be signed. This prevents lower than quorum colluding
 mints from increasing the monetary supply.
 
 Reducing the monetary supply requires the spending of DBCs without
-issuing new ones. For this DBCs can simply be reissued to an ACS that
+issuing new ones. For this DBCs can simply be reissued to an ACS that is
 provably unusable. These DBCs fall out of the circulation at the end of
 their verification epoch, effectively reducing the monetary supply.
 
