@@ -142,7 +142,7 @@ works as follows:
     transaction. If any input DBC is known return failure and abort
     transaction (on first known input DBC).
 5.  Write transaction hash to spendbook.
-6.  Signing output DBCs and return signature.
+6.  Sign output DBCs and return signature.
 
 If a transaction contains any spent input DBCs after unspent input DBCs,
 the unspent DBCs will be recorded as spent and the transaction will
