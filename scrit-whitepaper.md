@@ -723,8 +723,8 @@ backing of mint payment infrastructure by Bitcoin as soon as efficient
 multi-signature algorithms (for example, Schnorr signatures) are
 implemented. This would allow to extend the control quorum from Scrit
 mints to their backing. At this point in time a Bitcoin backing is
-already possible with multi-signature addresses, but this would limit $n$ to
-$15$.
+already possible with multi-signature addresses, but this would limit
+$n$ to $15$.
 
 It is also reasonable to envision backing by fiat money, precious
 metals, or any other valuables. Enforcing sound backing operations is
@@ -776,10 +776,11 @@ for its DBCs makes Scrit censorship resistant against rogue mints. Its
 network communication protocol, with very short encrypted packages that
 is proxy capable, makes it censorship resistant against network filters.
 
-It is not permissionless for mint operators, but it can be combined with
-permissionless backings like Bitcoin, creating a second-layer solution
-with very interesting properties, that make it a good fit for
-user-to-machine and machine-to-machine (micro-)payments.
+It is not permissionless for mint operators (a new mint needs the
+permission of the quorum $m$ of the existing mints to join), but it can
+be combined with permissionless backing like Bitcoin, creating a
+second-layer solution with very interesting properties, that make it a
+good fit for user-to-machine and machine-to-machine (micro-)payments.
 
 Its trust model makes Scrit very suitable as a value transfer system,
 but it should not be viewed as a long-term store of value.
