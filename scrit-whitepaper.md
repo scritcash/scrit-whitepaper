@@ -392,7 +392,7 @@ Distribution
 ============
 
 Scrit defines a valid DBC as a message signed by at least $m$-of-$n$
-mints that is **not** recored in the mints' spendbooks.
+mints that is **not** recorded in the mints' spendbooks.
 
 From this follows that a mint shall reissue a DBC if any of the
 following two rules is satisfied:
