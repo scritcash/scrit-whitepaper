@@ -84,7 +84,8 @@ spends).
 
 DBCs consist of a message and a list of signatures. The message contains
 information for looking up signature public keys as well as information
-to enforce ownership and uniqueness. Values for key lookup are amount,
+to enforce ownership and uniqueness. Values for key lookup are start of the
+signing epoch, amount,
 currency, and expiry, as well as signature algorithm. They refer to an
 entry in the *key list* (see [Key list](#key-list) below). Furthermore,
 the ownership is encoded by a hash of an *access control script* (ACS)
