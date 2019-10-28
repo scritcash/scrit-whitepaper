@@ -10,7 +10,7 @@ abstract: |
     and transactions are extremely cheap and fast (settlement is network
     latency bound leading to sub-second confirmation times).
 author: Jonathan Logan and Frank Braun
-date: '2019-10-27'
+date: '2019-10-28 (draft)'
 title: 'Scrit: A distributed untraceable electronic cash system'
 ---
 
@@ -84,16 +84,15 @@ spends).
 
 DBCs consist of a message and a list of signatures. The message contains
 information for looking up signature public keys as well as information
-to enforce ownership and uniqueness. Values for key lookup are start of the
-signing epoch, amount,
-currency, and expiry, as well as signature algorithm. They refer to an
-entry in the *key list* (see [Key list](#key-list) below). Furthermore,
-the ownership is encoded by a hash of an *access control script* (ACS)
-with which the mint verifies the user's authority to execute a
-transaction. The message also contains a random value for uniqueness.
-The list of signatures consists of at most one signature per mint in the
-network. Signatures contain the mint ID in addition to the cryptographic
-values of the signature itself.
+to enforce ownership and uniqueness. Values for key lookup are start of
+the signing epoch, amount, currency, and expiry, as well as signature
+algorithm. They refer to an entry in the *key list* (see [Key
+list](#key-list) below). Furthermore, the ownership is encoded by a hash
+of an *access control script* (ACS) with which the mint verifies the
+user's authority to execute a transaction. The message also contains a
+random value for uniqueness. The list of signatures consists of at most
+one signature per mint in the network. Signatures contain the mint ID in
+addition to the cryptographic values of the signature itself.
 
 Given the fields contained in the DBC (amount, currency, expiry,
 signature algorithm, and mint ID) the signing public key can be looked
@@ -780,9 +779,10 @@ user-to-machine and machine-to-machine (micro-)payments.
 Its trust model makes Scrit very suitable as a value transfer system,
 but it should not be viewed as a long-term store of value.
 
-Scrit revives the concept of Chaumian e-cash and adds federation to it.
-It allows to perform simple offline payments, a feature that to the best
-of our knowledge no other digital payment system has.
+Scrit revives the concept of Chaumian e-cash and adds federation to it,
+mitigating issuer risk. It allows to perform simple offline payments, a
+feature that to the best of our knowledge no other digital payment
+system has.
 
 References
 ==========
