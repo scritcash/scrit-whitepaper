@@ -776,7 +776,7 @@ for its DBCs makes Scrit censorship resistant against rogue mints. Its
 network communication protocol, with very short encrypted packages that
 is proxy capable, makes it censorship resistant against network filters.
 
-It is not permissionless for mint operators (a new mint needs the
+It is not permissionless for mint operators (a new mint requires the
 permission of the quorum $m$ of the existing mints to join), but it can
 be combined with permissionless backing like Bitcoin, creating a
 second-layer solution with very interesting properties, that make it a
