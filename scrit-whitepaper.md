@@ -583,7 +583,7 @@ In scenario 1. (both online) the sender scans a QR code from the
 recipient containing the payment sum, the DBC public key of the
 recipient, and a URL where to upload the payment DBCs. The sender
 reissues the necessary DBC to reach the payment sum for the recipient's
-public key, creating assigned DBCs. He then posts it to the URL. The
+public key, creating assigned DBCs. He then posts these to the URL. The
 recipient checks locally that he hasn't seen these DBCs before (to
 prevent double spends) and reissues them again (possibly later). This
 gives the sender [Evidence of payment](#evidence-of-payment), as
