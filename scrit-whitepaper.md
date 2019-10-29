@@ -48,15 +48,15 @@ fraud risk in Scrit, no identification or account is necessary.
 Scrit enables technical and legal distribution of DBC operations by
 parallel execution of transactions distributed over many separate mints.
 To accomplish this, we modify the classical construction of a DBC, which
-is composed of a message and a signature, and replace it with the definition of
-a DBC as consisting of a *unique* message and a *set* of signatures.
-Instead of relying on a unique value certified by a single mint, Scrit
-defines certification as consensus between mints expressed by
-independent mint signatures. The consensus is reached if a DBC carries
-enough signatures by different mints to reach a predefined *quorum*.
-That is, a DBC is valid, if it has at least $m$-of-$n$ signatures, where
-$m$ is the quorum and $n$ is the number of mints (as described in detail
-further below).
+is composed of a message and a signature, and replace it with the
+definition of a DBC as consisting of a *unique* message and a *set* of
+signatures. Instead of relying on a unique value certified by a single
+mint, Scrit defines certification as consensus between mints expressed
+by independent mint signatures. The consensus is reached if a DBC
+carries enough signatures by different mints to reach a predefined
+*quorum*. That is, a DBC is valid, if it has at least $m$-of-$n$
+signatures, where $m$ is the quorum and $n$ is the number of mints (as
+described in detail further below).
 
 Since Scrit operations are distributed over a set of mints, the question
 of governance arises. Technically, the solution of the governance
@@ -122,13 +122,14 @@ Transactions
 
 Scrit mints offer only three API calls to the Scrit clients: Perform a
 *transaction* (also called a *reissue*), a lookup in the spendbook
-(which records all spent DBCs), and one for retrieving the number of currently
-valid DBCs for a mint's signature key (to assess anonymity set sizes).
+(which records all spent DBCs), and one for retrieving the number of
+currently valid DBCs for a mint's signature key (to assess anonymity set
+sizes).
 
-The spendbook writes entries in the order given below and aborts transaction
-processing when encountering a failure. All writes are successful if the value was not contained in the
-spendbook before and fail if the value is already known. A transaction
-works as follows:
+The spendbook writes entries in the order given below and aborts
+transaction processing when encountering a failure. All writes are
+successful if the value was not contained in the spendbook before and
+fail if the value is already known. A transaction works as follows:
 
 1.  Verify transaction: Verify ACS, verify mint signatures on input
     DBCs.
@@ -199,9 +200,9 @@ encrypted server blinding parameters (see section on
 Furthermore, it contains values required for DBC signing key lookup
 (amount and denomination).
 
-For non-blind signing algorithms the server blinding parameters are empty.
-If only non-blind signing algorithms are used in the outputs, the same
-leaf is revealed to all mints and the mint ID is set to a global
+For non-blind signing algorithms the server blinding parameters are
+empty. If only non-blind signing algorithms are used in the outputs, the
+same leaf is revealed to all mints and the mint ID is set to a global
 constant referring to all mints.
 
 The tree is encoded as a Merkle tree. During transactions leaf and path
@@ -218,7 +219,8 @@ in the spendbook. In addition, recording the transaction itself allows
 idempotent operations.
 
 For the spendbook Scrit uses a key-value store in which the following is
-recorded:
+recorded ('$||$' denotes the concatenation of values,
+'$a \rightarrow b$', the mapping of key $a$ to value $b$):
 
 -   Transaction: $T||\mbox{Hash(Tx)} \rightarrow \mbox{Tx}$
 -   Parameters: $P||\mbox{Hash(Param)}\rightarrow \mbox{Hash(Tx)}$
@@ -312,13 +314,13 @@ expires:
 2.  The recipient talks to all $n$ mints **in parallel**, sending
     **each** mint the same global set of input parameters of the
     constructed transaction, but sending each mint a **different** mint
-    local set of input parameters (as described in the \[Transaction\]
-    section above).
+    local set of input parameters (as described in the
+    [Transactions](#transactions) section above).
 3.  Each mint verifies the transaction independently of all other mints,
     signs the output DBC, and returns its signature.
-4.  The recipient collects all the mint's signatures over the output DBC
-    B, combines them into a validly signed DBC B (given he received at
-    least $m$ valid signatures), and saves it in his wallet.
+4.  The recipient collects the signatures from all mints over the output
+    DBC B, combines them into a validly signed DBC B (given he received
+    at least $m$ valid signatures), and saves it in his wallet.
 
 Before starting the transaction the sender might have to reissue a DBC
 to create a suitable DBC A intended for the recipient. This is achieved
@@ -369,12 +371,12 @@ To be able to prune the spendbook and not having to keep signing keys
 secret forever, Scrit employs *key rotation* with disjunct signing
 epochs. The signing epoch determines which signing key is used at a
 certain point in time. After the end of a signing epoch follows a
-validation epoch in which DBCs can still be spend. The signing and
-validation epoch together comprise the verification epoch. Figure 3.
-visualizes the key rotation process.
+validation epoch in which DBCs can still be spend. Together the
+combination of signing and validation epoch comprise the verification
+epoch. Figure 3. visualizes the key rotation process.
 
 All mints have their own singing keys, but the epochs are the same for
-all of them and have to be synchronized (see section on
+all and have to be synchronized (see section on
 [Governance](#governance)).
 
 Employing key rotation has two important implication:
