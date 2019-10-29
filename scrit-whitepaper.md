@@ -37,7 +37,7 @@ example, amount, denomination, and expiry) in the signed message of the
 DBCs. Since the client controls the message, this poses a fraud risk
 that requires complex mitigation, which usually involved using either
 the user's identity or the user's holdings in his account as a
-collateral. In Scrit this fraud risk is removed by using the mint
+collateral. In Scrit this fraud risk is removed by using the mint's
 signing key as the signifier of certificate attributes. That is, each
 DBC signing key (from the mint) is associated to a unique tuple
 comprised of amount, denomination, and expiry. A successful verification
