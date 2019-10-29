@@ -188,8 +188,9 @@ DBCs and output DBC messages as well as parameters as input, and return
 output DBC signatures. Furthermore, transactions must fulfill conditions
 defined in the ACS referenced by the input DBCs.
 
-Transactions consist of two blocks: A global set of input parameters and
-a mint local set of input parameters.
+Transactions consist of three blocks: A global set of input parameters,
+a global list of user signatures, and a mint local set of input
+parameters.
 
 The global set of input parameters is sent to all mints and contains the
 following (see Figure 1):
@@ -200,8 +201,12 @@ following (see Figure 1):
     signatures.
 -   Root of parameter tree (see section [Parameter
     tree](#parameter-tree) below).
--   List of signatures to fulfill ACS that sign all of the above fields.
 -   List of access control scripts in the order of input DBCs.
+
+The global list of user signatures contains one entry per input DBC that
+consists of all signatures that are required to fulfill the
+corresponding ACS. Each signature signs the corresponding hash of the
+input DBC and the hash of the global set of input parameters.
 
 The mint local set of input parameters that is sent to a single mint
 contains only a list of lists of mint signatures and the corresponding
