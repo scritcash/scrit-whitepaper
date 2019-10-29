@@ -1,7 +1,7 @@
 ---
 abstract: |
     Scrit (secure, confidential, reliable, instant transactions) is a
-    federated Chaumian e-cash [see @Chaum1990]. Coins in Scrit are so-called
+    federated Chaumian ecash [see @Chaum1990]. Coins in Scrit are so-called
     *digital bearer certificates* (DBCs) issued by mints. Scrit mitigates
     the issuer risk common in other DBC systems by employing $n$ mints in
     parallel. It has the maximally achievable transaction anonymity, the
@@ -17,14 +17,14 @@ title: 'Scrit: A distributed untraceable electronic cash system'
 Introduction
 ============
 
-The problem of previous Chaumiam e-cash systems has been their
+A problem of previous Chaumiam ecash systems has been their
 centralization in both a technical and a governance sense, caused by
 employing a single mint. This has exposed these systems to technical and
 legal risks and presented a single point of failure.
 
-Furthermore, Chaumian e-cash systems focus on the model of withdrawing
-e-cash from *accounts* and depositing it into other accounts. This
-requires an unnecessary setup phase for users.
+Furthermore, Chaumian ecash systems focus on the model of withdrawing
+ecash from *accounts* and depositing it into other accounts. This
+requires an undesirable setup phase for users.
 
 Scrit removes the notion of accounts, it only has direct DBC-to-DBC
 transactions. Users do not have any standing relationship with the
@@ -32,13 +32,15 @@ operators nor do they possess any identifying authentication
 credentials. This both simplifies the system and removes a potential
 level for censorship.
 
-A classical Chaumian e-cash system encodes the attributes of a DBC (for
+A classical Chaumian ecash system encodes the attributes of a DBC (for
 example, amount, denomination, and expiry) in the signed message of the
-DBCs. Since the client controls the message, this poses a fraud risk
-that requires complex mitigation, which usually involved using either
-the user's identity or the user's holdings in his account as a
-collateral. In Scrit this fraud risk is removed by using the mint's
-signing key as the signifier of certificate attributes. That is, each
+DBCs [see @Chaum1990]. Since the client controls the message, this poses
+a fraud risk that requires complex mitigation, which usually involved
+using either the user's identity or the user's holdings in his account
+as a collateral. In Scrit this fraud risk is removed by using the mint's
+signing key as the signifier of certificate attributes, as in later
+implementations of ecash (see the "[Basic Security of the ecash Payment
+System](https://www.win.tue.nl/~berry/papers/cosic.pdf)"). That is, each
 DBC signing key (from the mint) is associated to a unique tuple
 comprised of amount, denomination, and expiry. A successful verification
 of a signature yields this tuple, the message contents are not
@@ -787,7 +789,7 @@ good fit for user-to-machine and machine-to-machine (micro-)payments.
 Its trust model makes Scrit very suitable as a value transfer system,
 but it should not be viewed as a long-term store of value.
 
-Scrit revives the concept of Chaumian e-cash and adds federation to it,
+Scrit revives the concept of Chaumian ecash and adds federation to it,
 mitigating issuer risk. It allows to perform simple offline payments, a
 feature that to the best of our knowledge no other digital payment
 system has.
