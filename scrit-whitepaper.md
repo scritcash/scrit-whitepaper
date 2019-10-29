@@ -74,6 +74,34 @@ performed in parallel. This leads to network latency bound settlement
 times with sub-second confirmations. See the section on
 [Performance](#performance) for details.
 
+Overview
+========
+
+Scrit serves the purpose of transferring value between users by
+employing a federation of third parties called *mints*. Value in Scrit
+is represented as a *digital bearer certificate* (DBC) which consists of
+a single-use unique message that is digitally signed by the mints, see
+section on [DBCs](#dbcs).
+
+To transact value the user sends a signed input DBC and a new output DBC
+message to the mints who record the signed input DBC as spent (in a
+database called *spendbook*, see section on [Spendbook
+entries](#spendbook-entries)), sign the new output DBC message, and
+return it to the user. See section on [Transactions](#transactions).
+
+For a transaction to be successful it has to be executed with a majority
+of all mints, see secion on [Quorum](#quorum).
+
+To control who can transact a DBC, Scrit employs digital signatures
+which public key is encoded in the DBC message. Transactions have to be
+signed by these keys. See section on [Access Control Script
+(ACS)](#access-control-script-acs).
+
+Membership in the mint federation as well as authorized mint signature
+keys are contained in a *key list* that is coordinated by a *governance*
+layer. See sections on [Key list](#key-list) and
+[Governance](#governance).
+
 DBCs
 ====
 
