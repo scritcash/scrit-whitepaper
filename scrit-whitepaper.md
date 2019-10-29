@@ -492,11 +492,11 @@ Scrit uses [Codechain](https://github.com/frankbraun/codechain) as its
 governance layer. Codechain is a system for secure multiparty code
 reviews which establishes code trust via multi-party reviews recorded
 unmodifiable hash chains. This makes it impossible for a single
-developer to add changes to the Scrit code base. It should be obvious
-why using Codechain is a good idea for sensitive code like the Scrit
-client or the Scrit mint, but it is probably less obvious how it could
-solve the governance problem. For the client and the mint the signers of
-the Scrit Codechain are the trusted Scrit developers.
+developer to add changes to the Scrit code base. Using Codechain tends
+to be a good idea for sensitive code like the Scrit client or the Scrit
+mint, but it is probably less clear how it could solve the governance
+problem. For the client and the mint the signers of the Scrit Codechain
+are the trusted Scrit developers.
 
 To understand how Codechain can solve the governance problem three
 points are important:
@@ -725,7 +725,8 @@ multi-signature algorithms (for example, Schnorr signatures) are
 implemented. This would allow to extend the control quorum from Scrit
 mints to their backing. At this point in time a Bitcoin backing is
 already possible with multi-signature addresses, but this would limit
-$n$ to $15$.
+$n$ to $15$, because that's the current maximum for m-of-n
+multi-signature addresses in Bitcoin.
 
 It is also reasonable to envision backing by fiat money, precious
 metals, or any other valuables. Enforcing sound backing operations is
@@ -758,7 +759,7 @@ The funds of each of these groups is controlled by a $g$-of-$g$
 multi-signature address. As soon as a mint can present evidence of
 another mint's attempt to form a cartel, that mint's security is
 distributed to the witness while the cartel forming mint is excluded
-from $n$.
+from $n$. The $g$ mints of every group judge the evidence.
 
 This method would allow to create an pseudonymous mint network. The only
 way to create a cartel in such a pseudonymous mint network is to sign
