@@ -170,18 +170,19 @@ following (see Figure 1):
     rotation epoch and must be globally coordinated between mints.
 -   Input DBCs: List of unblinded DBC messages, not including mint
     signatures.
--   Root of parameter tree (see [Parameter tree](#parameter-tree)
-    below).
+-   Root of parameter tree (see section [Parameter
+    tree](#parameter-tree) below).
 -   List of signatures to fulfill ACS that sign all of the above fields.
 -   List of access control scripts in the order of input DBCs.
 
 The mint local set of input parameters that is sent to a single mint
 contains only a list of lists of mint signatures and the corresponding
-path of the parameter tree (including the leaf). The list of lists has
-the same order as the input DBCs and contains the lists of the input DBC
-mint signatures. Usually such a list contains only the mint's own
-signature. Except in cases of mint recovery, see the section on
-[Distribution](#distribution) below.
+path of the parameter tree (including the leaf), see section [Parameter
+tree](#parameter-tree) below. The list of lists has the same order as
+the input DBCs and contains the lists of the input DBC mint signatures.
+Usually such a list contains only the mint's own signature. Except in
+cases of mint recovery, see the section on [Distribution](#distribution)
+below.
 
 This transaction format limits the amount of signatures a client has to
 make, so that it does not depend on the number $n$ of mints in the
@@ -323,10 +324,6 @@ expires:
 4.  The recipient collects the signatures from all mints over the output
     DBC B, combines them into a validly signed DBC B (given he received
     at least $m$ valid signatures), and saves it in his wallet.
-
-Before starting the transaction the sender might have to reissue a DBC
-to create a suitable DBC A intended for the recipient. This is achieved
-with an analog flow.
 
 The protocol protocol flow for an ACS type $0x00$ is similar, but
 simpler, as shown in Figure 2.
