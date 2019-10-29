@@ -1,14 +1,14 @@
 ---
 abstract: |
-    [Scrit](https://scrit.cash) (secure, confidential, reliable, instant
-    transactions) is a federated Chaumian e-cash [see @Chaum1990]. Coins in
-    Scrit are so-called *digital bearer certificates* (DBCs) issued by
-    mints. Scrit mitigates the issuer risk common in other DBC systems by
-    employing $n$ mints in parallel. It has the maximally achievable
-    transaction anonymity (the anonymity set of a DBC equals or is greater
-    than all DBCs ever issued in that denomination during the defined epoch)
-    and transactions are extremely cheap and fast (settlement is network
-    latency bound leading to sub-second confirmation times).
+    Scrit (secure, confidential, reliable, instant transactions) is a
+    federated Chaumian e-cash [see @Chaum1990]. Coins in Scrit are so-called
+    *digital bearer certificates* (DBCs) issued by mints. Scrit mitigates
+    the issuer risk common in other DBC systems by employing $n$ mints in
+    parallel. It has the maximally achievable transaction anonymity (the
+    anonymity set of a DBC equals or is greater than all DBCs ever issued in
+    that denomination during the defined epoch). Transactions are extremely
+    cheap and fast (settlement is network latency bound leading to
+    sub-second confirmation times).
 author: Jonathan Logan and Frank Braun
 date: '2019-10-28 (draft)'
 title: 'Scrit: A distributed untraceable electronic cash system'
