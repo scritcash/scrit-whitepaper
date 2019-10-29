@@ -10,7 +10,7 @@ abstract: |
     cheap and fast, the settlement is network latency bound leading to
     sub-second confirmation times.
 author: Jonathan Logan and Frank Braun
-date: '2019-10-28 (draft)'
+date: '2019-10-29 (draft)'
 title: 'Scrit: A distributed untraceable electronic cash system'
 ---
 
@@ -48,10 +48,10 @@ fraud risk in Scrit, no identification or account is necessary.
 Scrit enables technical and legal distribution of DBC operations by
 parallel execution of transactions distributed over many separate mints.
 To accomplish this, we modify the classical construction of a DBC, which
-consists of message and signature, and replace it with the definition of
+is composed of a message and a signature, and replace it with the definition of
 a DBC as consisting of a *unique* message and a *set* of signatures.
 Instead of relying on a unique value certified by a single mint, Scrit
-defines certification a as consensus between mints expressed by
+defines certification as consensus between mints expressed by
 independent mint signatures. The consensus is reached if a DBC carries
 enough signatures by different mints to reach a predefined *quorum*.
 That is, a DBC is valid, if it has at least $m$-of-$n$ signatures, where
@@ -108,7 +108,7 @@ Each mint publishes a list of its DBC signing keys. Per signing key the
 list contains the following information: amount, currency, signature
 algorithm, beginning and end of the signing epoch, the end of the
 validation epoch, and the corresponding unique public key. All entries
-are together signed by both the long-term identity signature key and
+are signed as a unit by both the long-term identity signature key and
 each unique DBC signing key contained in the list. This ensures that the
 private key corresponding to each public key contained in the list is
 actually controlled by the mint identified by the long-term identity
@@ -120,14 +120,14 @@ the system).
 Transactions
 ============
 
-Scrit mints offer only three APIs to the Scrit clients: Perform a
+Scrit mints offer only three API calls to the Scrit clients: Perform a
 *transaction* (also called a *reissue*), a lookup in the spendbook
-(which records all spent DBCs), and retrieving the number of currently
+(which records all spent DBCs), and one for retrieving the number of currently
 valid DBCs for a mint's signature key (to assess anonymity set sizes).
 
-The spendbook writes entries in the order given below and breaks on
-failure. All writes are successful if the value was not contained in the
-spendbook before and fail if the value is already known. A transactions
+The spendbook writes entries in the order given below and aborts transaction
+processing when encountering a failure. All writes are successful if the value was not contained in the
+spendbook before and fail if the value is already known. A transaction
 works as follows:
 
 1.  Verify transaction: Verify ACS, verify mint signatures on input
@@ -199,8 +199,8 @@ encrypted server blinding parameters (see section on
 Furthermore, it contains values required for DBC signing key lookup
 (amount and denomination).
 
-For unblind signing algorithms the server blinding parameters are empty.
-If only unblind signing algorithms are used in the outputs, the same
+For non-blind signing algorithms the server blinding parameters are empty.
+If only non-blind signing algorithms are used in the outputs, the same
 leaf is revealed to all mints and the mint ID is set to a global
 constant referring to all mints.
 
