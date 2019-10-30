@@ -753,7 +753,7 @@ multi-signature algorithms (for example, Schnorr signatures) are
 implemented. This would allow to extend the control quorum from Scrit
 mints to their backing. At this point in time a Bitcoin backing is
 already possible with multi-signature addresses, but this would limit
-$n$ to $15$, because that's the current maximum for m-of-n
+$n$ to $15$, because that is the current maximum for m-of-n
 multi-signature addresses in Bitcoin.
 
 It is also reasonable to envision backing by fiat money, precious
