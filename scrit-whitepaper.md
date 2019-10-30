@@ -90,7 +90,7 @@ entries](#spendbook-entries)), sign the new output DBC message, and
 return it to the user. See section on [Transactions](#transactions).
 
 For a transaction to be successful it has to be executed with a majority
-of all mints, see secion on [Quorum](#quorum).
+of all mints, see section on [Quorum](#quorum).
 
 To control who can transact a DBC, Scrit employs digital signatures
 which public key is encoded in the DBC message. Transactions have to be
@@ -101,6 +101,9 @@ Membership in the mint federation as well as authorized mint signature
 keys are contained in a *key list* that is coordinated by a *governance*
 layer. See sections on [Key list](#key-list) and
 [Governance](#governance).
+
+Keys are only valid during their *signing
+epoch*, see section on [Key rotation](#key-rotation).
 
 DBCs
 ====
