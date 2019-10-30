@@ -102,8 +102,8 @@ keys are contained in a *key list* that is coordinated by a *governance*
 layer. See sections on [Key list](#key-list) and
 [Governance](#governance).
 
-Keys are only valid during their *signing
-epoch*, see section on [Key rotation](#key-rotation).
+Keys are only valid during their *signing epoch*, see section on [Key
+rotation](#key-rotation).
 
 DBCs
 ====
@@ -574,13 +574,6 @@ Codechain:
     client and the mint can automatically and securely update the mint
     configuration, allowing to transparently add and remove mints from
     the system.
--   Since Scrit is not only multi currency capable (multiple currencies
-    in potentially different denominations issued by one set of mints),
-    but also capable of dealing with **different** sets of mints, all
-    these governance problems could easily be solved by each set of
-    mints having their **own** governance Codechain (with their own
-    rules etc.), and **all** governance Codechains added as secure
-    dependencies to the Scrit client.
 
 The whole design gives us a simple solution to the governance problem in
 Scrit:
