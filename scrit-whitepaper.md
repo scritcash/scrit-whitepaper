@@ -2,8 +2,8 @@
 abstract: |
     Scrit (secure, confidential, reliable, instant transactions) is a
     federated Chaumian ecash [see @Chaum1990]. Coins in Scrit are so-called
-    *digital bearer certificates* (DBCs) issued by mints. Scrit mitigates
-    the issuer risk common in other DBC systems by employing $n$ mints in
+    digital bearer certificates (DBCs) issued by mints. Scrit mitigates the
+    issuer risk common in other DBC systems by employing $n$ mints in
     parallel. It has the maximally achievable transaction anonymity, the
     anonymity set of a DBC equals or is greater than all DBCs ever issued in
     that denomination during the defined epoch. Transactions are extremely
@@ -78,9 +78,9 @@ Overview
 ========
 
 Scrit serves the purpose of transferring value between users by
-employing a federation of third parties called *mints*. Value in Scrit
-is represented as a *digital bearer certificate* (DBC) which consists of
-a single-use unique message that is digitally signed by the mints, see
+employing a federation of third parties called mints. Value in Scrit is
+represented as a *digital bearer certificate* (DBC) which consists of a
+single-use unique message that is digitally signed by the mints, see
 section on [DBCs](#dbcs).
 
 To transact value the user sends a signed input DBC and a new output DBC
@@ -109,7 +109,7 @@ DBCs are single-use digital coins in predefined denominations. The
 denomination, expiry, and currency of these coins are encoded by public
 signing keys employed by *mints* (the issuers of DBCs in Scrit). A
 signature done by a mint guarantees the authenticity of a DBC. The
-*spendbook* of a mint guarantees uniqueness (and thereby prevents double
+spendbook of a mint guarantees uniqueness (and thereby prevents double
 spends).
 
 DBCs consist of a message and a list of signatures. The message contains
