@@ -30,7 +30,7 @@ Scrit removes the notion of accounts, it only has direct DBC-to-DBC
 transactions. Users do not have any standing relationship with the
 operators nor do they possess any identifying authentication
 credentials. This both simplifies the system and removes a potential
-level for censorship.
+lever for censorship.
 
 A classical Chaumian ecash system encodes the attributes of a DBC (for
 example, amount, denomination, and expiry) in the signed message of the
