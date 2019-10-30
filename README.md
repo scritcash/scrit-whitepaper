@@ -3,6 +3,21 @@ Scrit white paper
 
 This repository contains the *work in progress* Scrit whitepaper.
 
+####
+Dependencies:
+
+- make
+- pandoc
+- pandoc-citeproc
+- pdflatex
+
+Most dependencies can be easily installed using homebrew (osx) or chocalety (win):
+Homebrew (OSX) one-liner:
+```
+brew install make pandoc pandoc-citeproc && brew cask install basictex
+```
+
+
 ### Build the white paper
 
 ```
