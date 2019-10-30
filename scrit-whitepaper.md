@@ -39,13 +39,12 @@ a fraud risk that requires complex mitigation, which usually involved
 using either the user's identity or the user's holdings in his account
 as a collateral. In Scrit this fraud risk is removed by using the mint's
 signing key as the signifier of certificate attributes, similar to later
-implementations of ecash (see the "[Basic Security of the ecash Payment
-System](https://www.win.tue.nl/~berry/papers/cosic.pdf)"). That is, each
-DBC signing key (from the mint) is associated to a unique tuple
-comprised of amount, denomination, and expiry. A successful verification
-of a signature yields this tuple, the message contents are not
-authoritative concerning the value of a DBC. Since this removes the
-fraud risk in Scrit, no identification or account is necessary.
+implementations of ecash [see @Schoenmakers1998]. That is, each DBC
+signing key (from the mint) is associated to a unique tuple comprised of
+amount, denomination, and expiry. A successful verification of a
+signature yields this tuple, the message contents are not authoritative
+concerning the value of a DBC. Since this removes the fraud risk in
+Scrit, no identification or account is necessary.
 
 Scrit enables technical and legal distribution of DBC operations by
 parallel execution of transactions distributed over many separate mints.
