@@ -783,7 +783,7 @@ he can provide evidence of the formation of a cartel.
 
 In such a system, the $n$ mints are divided into groups of size $g=n-m$
 and each mint distributes its security equally over all of these groups.
-The funds of each of these groups is controlled by a $g$-of-$g$
+The funds of each of these groups is controlled by a $(g-1)$-of-$g$
 multi-signature address. As soon as a mint can present evidence of
 another mint's attempt to form a cartel, that mint's security is
 distributed to the witness while the cartel forming mint is excluded
