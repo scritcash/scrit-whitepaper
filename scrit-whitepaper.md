@@ -500,7 +500,7 @@ have to collude in order to to allow dishonest behavior. The lower the
 quorum, the more mints can fail during operation without interrupting
 the system.
 
-We suggest a minimum of $n=10$ mints and an $m=8$ quorum.
+We suggest a minimum of $n=10$ mints combined with a $m=8$ quorum.
 
 Governance
 ==========
