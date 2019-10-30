@@ -149,9 +149,9 @@ signature key, which prevents the creation of forged DBCs. The
 association between certification values and the DBC signing key must be
 globally unique (which has to be verified by all clients and mints in
 the system). Without unique DBC signing keys it becomes impossible to
-count mint signatures. This can lead to faulty signature sets that yield 
-an invalid DBC (a key shared between multiple mints) or to fraudulent 
-certification of DBC properties (a key used to certify more than one set 
+count mint signatures. This can lead to faulty signature sets that yield
+an invalid DBC (a key shared between multiple mints) or to fraudulent
+certification of DBC properties (a key used to certify more than one set
 of properties).
 
 Transactions
@@ -478,6 +478,14 @@ New mints do not have to know any spendbook of other mints in order to
 participate in the network. Only knowledge of the public signing keys is
 required.
 
+Scrit is based on a quorum of mints certifying the validity of DBCs to
+users and other mints. This allows mints without prior knowledge of a
+DBC to accept it as valid as long as it is signed by enough other mints.
+However, this only holds as long as there is an upper bound of mints
+that are **replaced** during the verification epoch of a DBC. No more
+than (n-m)/2 mints may be replaced during that epoch to prevent a user
+from forging a DBC.
+
 Change of monetary supply
 -------------------------
 
@@ -529,8 +537,8 @@ problem of *governance*?
 
 Scrit uses [Codechain](https://github.com/frankbraun/codechain) as its
 governance layer. Codechain is a system for secure multiparty code
-reviews which establishes code trust via multi-party reviews recorded
-in unmodifiable hash chains. This makes it impossible for a single
+reviews which establishes code trust via multi-party reviews recorded in
+unmodifiable hash chains. This makes it impossible for a single
 developer to add changes to the Scrit code base. Using Codechain tends
 to be a good idea for sensitive code like the Scrit client or the Scrit
 mint, but it is probably less clear how it could solve the governance
