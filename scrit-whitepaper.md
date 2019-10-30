@@ -482,9 +482,21 @@ Scrit is based on a quorum of mints certifying the validity of DBCs to
 users and other mints. This allows mints without prior knowledge of a
 DBC to accept it as valid as long as it is signed by enough other mints.
 However, this only holds as long as there is an upper bound of mints
-that are **replaced** during the verification epoch of a DBC. No more
-than (n-m)/2 mints may be replaced during that epoch to prevent a user
-from forging a DBC.
+that are **changed** during the verification epoch of a DBC. No more
+than $x$\<$2m$-$n$ mints may be changed (added or replaced) during that
+epoch to prevent a user from forging a DBC.
+
+To simplify corner cases of verification in actual implementations we
+set the rule that a verification period may not be longer than the next
+signing period.
+
+Changes to $m$ are unproblematic because in transactions the $m$ refers
+to input DBCs of the same or previous epoch while $m$ in the output DBCS
+refers to the current signing epoch only. However $m$ must always be
+larger than $n/2$, as explained in section Quorum.
+
+Given these constraints it is advisable that $m$ is significantly larger
+than $n/2$ to add more flexible to the change of $n$.
 
 Change of monetary supply
 -------------------------
