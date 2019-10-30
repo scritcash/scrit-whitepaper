@@ -526,7 +526,7 @@ problem of *governance*?
 Scrit uses [Codechain](https://github.com/frankbraun/codechain) as its
 governance layer. Codechain is a system for secure multiparty code
 reviews which establishes code trust via multi-party reviews recorded
-unmodifiable hash chains. This makes it impossible for a single
+in unmodifiable hash chains. This makes it impossible for a single
 developer to add changes to the Scrit code base. Using Codechain tends
 to be a good idea for sensitive code like the Scrit client or the Scrit
 mint, but it is probably less clear how it could solve the governance
@@ -707,8 +707,8 @@ long-term and short-term public encryption keys.
 Using single packet UDP requests and responses with encrypted payloads
 allows the development of censorship resilient mint networks.
 
-For recovery or large transactions communication to the mint employs TLS
-over TCP.
+For recovery or large transactions communication to the mint the client
+uses TLS over TCP.
 
 Furthermore, the transaction format allows the relaying of transactions
 through active trustless proxies that efficiently distribute the
