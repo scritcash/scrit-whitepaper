@@ -148,7 +148,11 @@ actually controlled by the mint identified by the long-term identity
 signature key, which prevents the creation of forged DBCs. The
 association between certification values and the DBC signing key must be
 globally unique (which has to be verified by all clients and mints in
-the system).
+the system). Failing the uniqueness test the counting of mint signatures
+becomes impossible, which can lead to both faulty signature sets that yield
+an invalid DBC (a key shared between multiple mints) or to fraudulent 
+certification of DBC properties (a key used to certify more than one set
+of properties).
 
 Transactions
 ============
