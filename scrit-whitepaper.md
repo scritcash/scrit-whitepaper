@@ -794,7 +794,7 @@ way to create a cartel in such a pseudonymous mint network is to sign
 the relevant communication which also creates proof of cartel forming
 activity. Unauthenticated communication towards this goal is
 indistinguishable from a member being tested towards his inclination for
-cartel membership. However, this method does not prevent Sybill attacks.
+cartel membership. However, this method does not prevent Sybil attacks.
 
 Conclusion
 ==========
