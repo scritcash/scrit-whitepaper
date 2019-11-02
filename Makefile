@@ -13,9 +13,9 @@ scrit-whitepaper.pdf: image/transaction.pdf image/transaction-format.pdf image/k
 
 .PHONY: fmt clean
 fmt:
-	pandoc --standalone -o tmp.md -s scrit-whitepaper.md
+	pandoc -o tmp.md -s scrit-whitepaper.md
 	mv tmp.md scrit-whitepaper.md
-	pandoc --standalone -o tmp.md -s README.md
+	pandoc -o tmp.md -s README.md
 	mv tmp.md README.md
 
 clean:
