@@ -139,19 +139,22 @@ Key list
 Each mint publishes a list of its DBC signing keys. Per signing key the
 list contains the following information: amount, currency, signature
 algorithm, beginning and end of the signing epoch, the end of the
-validation epoch, and the corresponding unique public key. All entries
-are signed as a unit by both the long-term identity signature key and
-each unique DBC signing key contained in the list. This ensures that the
-private key corresponding to each public key contained in the list is
-actually controlled by the mint identified by the long-term identity
-signature key, which prevents the creation of forged DBCs. The
-association between certification values and the DBC signing key must be
-globally unique (which has to be verified by all clients and mints in
-the system). Without unique DBC signing keys it becomes impossible to
-count mint signatures. This can lead to faulty signature sets that yield
-an invalid DBC (a key shared between multiple mints) or to fraudulent
-certification of DBC properties (a key used to certify more than one set
-of properties).
+validation epoch, and the corresponding unique public key.
+
+All entries are signed as a unit by both the long-term identity
+signature key and each unique DBC signing key contained in the list.
+This ensures that the private key corresponding to each public key
+contained in the list is actually controlled by the mint identified by
+the long-term identity signature key, which prevents the creation of
+forged DBCs.
+
+The association between certification values and the DBC signing key
+must be globally unique (which has to be verified by all clients and
+mints in the system). Without unique DBC signing keys it becomes
+impossible to count mint signatures. This can lead to faulty signature
+sets that yield an invalid DBC (a key shared between multiple mints) or
+to fraudulent certification of DBC properties (a key used to certify
+more than one set of properties).
 
 Transactions
 ============
