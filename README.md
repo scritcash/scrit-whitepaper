@@ -1,8 +1,8 @@
 Scrit white paper
 -----------------
 
-This repository contains the *work in progress* Scrit whitepaper, read the
-[PDF](scrit-whitepaper.pdf).
+This repository contains the *work in progress* Scrit whitepaper, read
+the [PDF](scrit-whitepaper.pdf).
 
 ### Dependencies
 
@@ -11,8 +11,8 @@ This repository contains the *work in progress* Scrit whitepaper, read the
 -   pandoc-citeproc
 -   pdflatex
 
-Most dependencies can be easily installed using Apt (Linux), Homebrew (macOS), or
-Chocalety (Windows).
+Most dependencies can be easily installed using Apt (Linux), Homebrew
+(macOS), or Chocalety (Windows).
 
 Apt (Linux) one-liner:
 
