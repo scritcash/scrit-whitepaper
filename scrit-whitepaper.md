@@ -189,6 +189,15 @@ the unspent DBCs will be recorded as spent and the transaction will
 abort without returning DBC signatures. This can only happen, if the
 client attempts to defraud the mint (or the implementer screwed up).
 
+Using a different approach would make spendbook operations more
+complicated because they then need two-phase commits in order to prevent
+race conditions on the spendbook (for both blinding parameters and DBCs,
+not for transaction hashes). This is rather difficult when trying to do
+sharded storage backends and multiple instances of a mint working on the
+same spendbook. We consider the use of a simple commit as being less
+risky overall, although more care has to be taken to not loose DBCs by
+faulty client side implementations.
+
 Transaction format
 ------------------
 
