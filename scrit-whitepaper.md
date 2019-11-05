@@ -4,11 +4,10 @@ abstract: |
     federated Chaumian ecash [see @Chaum1990]. Coins in Scrit are so-called
     digital bearer certificates (DBCs) issued by mints. Scrit mitigates the
     issuer risk common in other DBC systems by employing $n$ mints in
-    parallel.
-    The anonymity set of a DBC normally equals all DBCs ever issued in
-    that denomination during the defined epoch. Transactions are extremely
-    cheap and fast, the settlement is network latency bound leading to
-    sub-second confirmation times.
+    parallel. The anonymity set of a DBC normally equals all DBCs ever
+    issued in that denomination during the defined epoch. Transactions are
+    extremely cheap and fast, the settlement is network latency bound
+    leading to sub-second confirmation times.
 author: Jonathan Logan and Frank Braun
 date: '2019-11-05 (draft)'
 title: 'Scrit: A distributed untraceable electronic cash system'
