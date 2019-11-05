@@ -154,7 +154,9 @@ mints in the system). Without unique DBC signing keys it becomes
 impossible to count mint signatures. This can lead to faulty signature
 sets that yield an invalid DBC (a key shared between multiple mints) or
 to fraudulent certification of DBC properties (a key used to certify
-more than one set of properties).
+more than one set of properties). The self-signing with each unique DBC
+signing key helps to enforce key uniqueness by attributing the key to
+the corresponding mint.
 
 Transactions
 ============
