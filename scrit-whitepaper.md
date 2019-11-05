@@ -10,7 +10,7 @@ abstract: |
     cheap and fast, the settlement is network latency bound leading to
     sub-second confirmation times.
 author: Jonathan Logan and Frank Braun
-date: '2019-10-30 (draft)'
+date: '2019-11-05 (draft)'
 title: 'Scrit: A distributed untraceable electronic cash system'
 ---
 
