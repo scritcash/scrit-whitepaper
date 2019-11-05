@@ -492,6 +492,12 @@ Transactions employing rule 2. are called *recovery transactions*.
 Accordingly, transactions employing rule 1., which is the normal case,
 are also called *non-recovery transactions*.
 
+To prevent rogue mints from stealing DBCs of ACS type $0x00$ at least
+$m$ transactions employing rule 1. must be performed before executing
+any recovery transactions employing rule 2., otherwise a rogue mint
+could learn the signatures of the other mints which are necessary to
+steal the DBCs.
+
 Temporary or permanent unavailability of single mints, as long as the
 quorum remains fulfilled, does not undermine the ability of Scrit to
 perform transactions. The later addition of new mints and the ability to
