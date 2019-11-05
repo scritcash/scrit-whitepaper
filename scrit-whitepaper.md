@@ -4,8 +4,8 @@ abstract: |
     federated Chaumian ecash [see @Chaum1990]. Coins in Scrit are so-called
     digital bearer certificates (DBCs) issued by mints. Scrit mitigates the
     issuer risk common in other DBC systems by employing $n$ mints in
-    parallel. It has the maximally achievable transaction anonymity, the
-    anonymity set of a DBC equals or is greater than all DBCs ever issued in
+    parallel.
+    The anonymity set of a DBC normally equals all DBCs ever issued in
     that denomination during the defined epoch. Transactions are extremely
     cheap and fast, the settlement is network latency bound leading to
     sub-second confirmation times.
@@ -402,7 +402,18 @@ While the unblind signature scheme provides anonymity to the users of
 the system it still allows the creation of a history of DBC transaction.
 Only by using the blind and unlinkable signature scheme does it become
 possible to preserve untraceability and thus increase the anonymity set
-of all DBCs to at least the DBCs issued during one signing epoch.
+of all DBCs to at most the DBCs issued during one signing epoch.
+
+Normally the anonymity set of all DBCs equals all the DBCs issued during
+one signing epoch. However, offline mints which lead to DBCs with
+incomplete signature sets can degrade the anonymity set. To somewhat
+mitigate this degradation two extra measures should be introduced:
+
+1.  For recovery transactions only $m$ randomly sampled signatures
+    should be included to conceal leaking information about which mints
+    have been offline during the transaction.
+2.  Clients should also perform random recovery transactions for DBCs
+    where all signatures could be collected.
 
 Key rotation
 ============
