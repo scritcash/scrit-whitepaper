@@ -118,7 +118,7 @@ information for looking up signature public keys as well as information
 to enforce ownership and uniqueness. Values for key lookup are start of
 the signing epoch, amount, currency, and expiry, as well as signature
 algorithm. They refer to an entry in the *key list* (see [Key
-list](#key-list) below). Furthermore, the ownership is encoded by a hash
+list](#key-list) below). Furthermore, the ownership is encoded by the hash
 of an *access control script* (ACS) with which the mint verifies the
 user's authority to execute a transaction. The message also contains a
 random value for uniqueness. The list of signatures consists of at most
@@ -173,7 +173,7 @@ fail if the value is already known. A transaction works as follows:
 
 1.  Verify transaction: Verify ACS, verify mint signatures on input
     DBCs.
-2.  Test if transaction has already been added to spendbook, if yes
+2.  Test if the transaction has already been added to the spendbook, if yes
     return success and sign output DBCs.
 3.  Write server parameters to spendbook in the order contained in the
     transaction (if required for signature algorithm). If any parameter
@@ -216,7 +216,7 @@ following (see Figure 1):
 
 -   Start of the signing epoch, which refers to start of the key
     rotation epoch and must be globally coordinated between mints.
--   Input DBCs: List of unblinded DBC messages, not including mint
+-   Input DBCs: List of  unblinded DBC messages, not including mint
     signatures.
 -   Root of parameter tree (see section [Parameter
     tree](#parameter-tree) below).
@@ -270,7 +270,7 @@ To enforce the uniqueness of DBCs (preventing double spend) each mint
 records the message of every spent DBC within one key verification epoch
 (that is, signing plus validation epoch). Furthermore, server blinding
 parameters have to be unique as well, which requires them to be recorded
-in the spendbook. In addition, recording the transaction itself allows
+in the spendbook. In addition, recording the transaction itself allows for
 idempotent operations.
 
 For the spendbook Scrit uses a key-value store in which the following is
@@ -408,7 +408,7 @@ transaction $Q$ and the encrypted $K$ are send back to the mint and the
 mint decrypts $K$, verifies it against the spendbook, and on success
 generates one signature.
 
-While the unblind signature scheme provides anonymity to the users of
+While the non-blind signature scheme provides anonymity to the users of
 the system it still allows the creation of a history of DBC transaction.
 Only by using the blind and unlinkable signature scheme does it become
 possible to preserve untraceability and thus increase the anonymity set
@@ -432,7 +432,7 @@ To be able to prune the spendbook and not having to keep signing keys
 secret forever, Scrit employs *key rotation* with disjunct signing
 epochs. The signing epoch determines which signing key is used at a
 certain point in time. After the end of a signing epoch follows a
-validation epoch in which DBCs can still be spend. Together the
+validation epoch in which DBCs can still be spent. Together the
 combination of signing and validation epoch comprise the verification
 epoch. Figure 3. visualizes the key rotation process.
 
@@ -462,7 +462,7 @@ following two rules is satisfied:
 
 1.  A DBC message is not found in the spendbook and the DBC message is
     signed by the mint itself.
-2.  A DBC message is not found in the spendbook and the DBC messaged is
+2.  A DBC message is not found in the spendbook and the DBC message is
     signed by at least $m$-of-$n$ other mints.
 
 For these rules to be sufficient the signing public keys for case 2.
@@ -530,7 +530,7 @@ than $n/2$ to have more flexibility with changes of $n$.
 Change of monetary supply
 -------------------------
 
-Increasing the monetary supply consists of issuing new DBCs without
+Increasing the monetary supply consists in issuing new DBCs without
 spending existing DBCs. For this to be possible mints have to coordinate
 the DBC message to be signed. This prevents lower than quorum colluding
 mints from increasing the monetary supply.
