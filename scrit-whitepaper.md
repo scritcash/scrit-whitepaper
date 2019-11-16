@@ -9,7 +9,7 @@ abstract: |
     extremely cheap and fast, the settlement is network latency bound
     leading to sub-second confirmation times.
 author: Jonathan Logan and Frank Braun
-date: '2019-11-05 (draft)'
+date: '2019-11-16 (draft)'
 title: 'Scrit: A distributed untraceable electronic cash system'
 ---
 
@@ -118,12 +118,12 @@ information for looking up signature public keys as well as information
 to enforce ownership and uniqueness. Values for key lookup are start of
 the signing epoch, amount, currency, and expiry, as well as signature
 algorithm. They refer to an entry in the *key list* (see [Key
-list](#key-list) below). Furthermore, the ownership is encoded by the hash
-of an *access control script* (ACS) with which the mint verifies the
-user's authority to execute a transaction. The message also contains a
-random value for uniqueness. The list of signatures consists of at most
-one signature per mint in the network. Signatures contain the mint ID in
-addition to the cryptographic values of the signature itself.
+list](#key-list) below). Furthermore, the ownership is encoded by the
+hash of an *access control script* (ACS) with which the mint verifies
+the user's authority to execute a transaction. The message also contains
+a random value for uniqueness. The list of signatures consists of at
+most one signature per mint in the network. Signatures contain the mint
+ID in addition to the cryptographic values of the signature itself.
 
 Given the fields contained in the DBC (amount, currency, expiry,
 signature algorithm, and mint ID) the signing public key can be looked
@@ -173,8 +173,8 @@ fail if the value is already known. A transaction works as follows:
 
 1.  Verify transaction: Verify ACS, verify mint signatures on input
     DBCs.
-2.  Test if the transaction has already been added to the spendbook, if yes
-    return success and sign output DBCs.
+2.  Test if the transaction has already been added to the spendbook, if
+    yes return success and sign output DBCs.
 3.  Write server parameters to spendbook in the order contained in the
     transaction (if required for signature algorithm). If any parameter
     is known return failure and abort transaction (on first known
@@ -216,7 +216,7 @@ following (see Figure 1):
 
 -   Start of the signing epoch, which refers to start of the key
     rotation epoch and must be globally coordinated between mints.
--   Input DBCs: List of  unblinded DBC messages, not including mint
+-   Input DBCs: List of unblinded DBC messages, not including mint
     signatures.
 -   Root of parameter tree (see section [Parameter
     tree](#parameter-tree) below).
@@ -270,8 +270,8 @@ To enforce the uniqueness of DBCs (preventing double spend) each mint
 records the message of every spent DBC within one key verification epoch
 (that is, signing plus validation epoch). Furthermore, server blinding
 parameters have to be unique as well, which requires them to be recorded
-in the spendbook. In addition, recording the transaction itself allows for
-idempotent operations.
+in the spendbook. In addition, recording the transaction itself allows
+for idempotent operations.
 
 For the spendbook Scrit uses a key-value store in which the following is
 recorded ('$||$' denotes the concatenation of values,
